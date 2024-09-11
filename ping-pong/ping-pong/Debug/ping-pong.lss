@@ -1,0 +1,352 @@
+
+ping-pong.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000018  00800100  000001be  00000252  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000001be  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000001  00800118  00800118  0000026a  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000026a  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000029c  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000088  00000000  00000000  000002d8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000961  00000000  00000000  00000360  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000007ee  00000000  00000000  00000cc1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000468  00000000  00000000  000014af  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000124  00000000  00000000  00001918  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000040c  00000000  00000000  00001a3c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000001bb  00000000  00000000  00001e48  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000058  00000000  00000000  00002003  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 38 00 	jmp	0x70	; 0x70 <__ctors_end>
+   4:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+   8:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+   c:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  10:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  14:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  18:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  1c:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  20:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  24:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  28:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  2c:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  30:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  34:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  38:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  3c:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  40:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  44:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  48:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  4c:	0c 94 9a 00 	jmp	0x134	; 0x134 <__vector_19>
+  50:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  54:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  58:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  5c:	0c 94 7d 00 	jmp	0xfa	; 0xfa <__vector_23>
+  60:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  64:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  68:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+  6c:	0c 94 55 00 	jmp	0xaa	; 0xaa <__bad_interrupt>
+
+00000070 <__ctors_end>:
+  70:	11 24       	eor	r1, r1
+  72:	1f be       	out	0x3f, r1	; 63
+  74:	cf ef       	ldi	r28, 0xFF	; 255
+  76:	d4 e0       	ldi	r29, 0x04	; 4
+  78:	de bf       	out	0x3e, r29	; 62
+  7a:	cd bf       	out	0x3d, r28	; 61
+
+0000007c <__do_copy_data>:
+  7c:	11 e0       	ldi	r17, 0x01	; 1
+  7e:	a0 e0       	ldi	r26, 0x00	; 0
+  80:	b1 e0       	ldi	r27, 0x01	; 1
+  82:	ee eb       	ldi	r30, 0xBE	; 190
+  84:	f1 e0       	ldi	r31, 0x01	; 1
+  86:	02 c0       	rjmp	.+4      	; 0x8c <__do_copy_data+0x10>
+  88:	05 90       	lpm	r0, Z+
+  8a:	0d 92       	st	X+, r0
+  8c:	a8 31       	cpi	r26, 0x18	; 24
+  8e:	b1 07       	cpc	r27, r17
+  90:	d9 f7       	brne	.-10     	; 0x88 <__do_copy_data+0xc>
+
+00000092 <__do_clear_bss>:
+  92:	21 e0       	ldi	r18, 0x01	; 1
+  94:	a8 e1       	ldi	r26, 0x18	; 24
+  96:	b1 e0       	ldi	r27, 0x01	; 1
+  98:	01 c0       	rjmp	.+2      	; 0x9c <.do_clear_bss_start>
+
+0000009a <.do_clear_bss_loop>:
+  9a:	1d 92       	st	X+, r1
+
+0000009c <.do_clear_bss_start>:
+  9c:	a9 31       	cpi	r26, 0x19	; 25
+  9e:	b2 07       	cpc	r27, r18
+  a0:	e1 f7       	brne	.-8      	; 0x9a <.do_clear_bss_loop>
+  a2:	0e 94 c0 00 	call	0x180	; 0x180 <main>
+  a6:	0c 94 dd 00 	jmp	0x1ba	; 0x1ba <_exit>
+
+000000aa <__bad_interrupt>:
+  aa:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000ae <UART_init>:
+
+//--------
+
+void UART_init(uint16_t ubrr) {
+
+	cli(); //disable interrupts
+  ae:	f8 94       	cli
+
+	UBRR0H = (uint8_t)(ubrr>>8);	//set baud rate
+  b0:	90 bd       	out	0x20, r25	; 32
+	UBRR0L = (uint8_t)ubrr;
+  b2:	89 b9       	out	0x09, r24	; 9
+	UCSR0B = (1<<RXEN0) | (1<<TXEN0);       //enable receiver and transmitter...
+  b4:	88 e1       	ldi	r24, 0x18	; 24
+  b6:	8a b9       	out	0x0a, r24	; 10
+	UCSR0B |= (1<<TXCIE0) | (1<<RXCIE0);    //...and also TXC,RXC interrupts
+  b8:	8a b1       	in	r24, 0x0a	; 10
+  ba:	80 6c       	ori	r24, 0xC0	; 192
+  bc:	8a b9       	out	0x0a, r24	; 10
+	
+	UCSR0C = (1 << URSEL0); //access UCSRC register (shared with UBRHH)
+  be:	80 e8       	ldi	r24, 0x80	; 128
+  c0:	80 bd       	out	0x20, r24	; 32
+	UCSR0C |= (3<<UCSZ00) | (1<<USBS0) | (1<<UPM11); //frame format: 8 data bits, 2 stop bit, parity: enabled, type = EVEN
+  c2:	80 b5       	in	r24, 0x20	; 32
+  c4:	8e 62       	ori	r24, 0x2E	; 46
+  c6:	80 bd       	out	0x20, r24	; 32
+	
+	sei();  //re-enable global interrupt
+  c8:	78 94       	sei
+	
+	//set led pins
+	DDRB |= (1<<TXLED) | (1<<RXLED);	//direction: output
+  ca:	87 b3       	in	r24, 0x17	; 23
+  cc:	86 60       	ori	r24, 0x06	; 6
+  ce:	87 bb       	out	0x17, r24	; 23
+	PORTB |= (1<<TXLED) | (1<<RXLED);	//turn them off (sink-mode)
+  d0:	88 b3       	in	r24, 0x18	; 24
+  d2:	86 60       	ori	r24, 0x06	; 6
+  d4:	88 bb       	out	0x18, r24	; 24
+  d6:	08 95       	ret
+
+000000d8 <UART_transmit>:
+}
+
+//--------
+
+void UART_transmit(uint8_t data){
+	while (!(UCSR0A & (1<<UDRE0))); //wait until UDRE->1 = ready
+  d8:	5d 9b       	sbis	0x0b, 5	; 11
+  da:	fe cf       	rjmp	.-4      	; 0xd8 <UART_transmit>
+	UDR0 = data;
+  dc:	8c b9       	out	0x0c, r24	; 12
+  de:	08 95       	ret
+
+000000e0 <UART_send_string>:
+}
+
+void UART_send_string(const char *str){
+  e0:	cf 93       	push	r28
+  e2:	df 93       	push	r29
+  e4:	ec 01       	movw	r28, r24
+	while (*str){
+  e6:	03 c0       	rjmp	.+6      	; 0xee <UART_send_string+0xe>
+		UART_transmit(*str++);
+  e8:	21 96       	adiw	r28, 0x01	; 1
+  ea:	0e 94 6c 00 	call	0xd8	; 0xd8 <UART_transmit>
+	while (!(UCSR0A & (1<<UDRE0))); //wait until UDRE->1 = ready
+	UDR0 = data;
+}
+
+void UART_send_string(const char *str){
+	while (*str){
+  ee:	88 81       	ld	r24, Y
+  f0:	81 11       	cpse	r24, r1
+  f2:	fa cf       	rjmp	.-12     	; 0xe8 <UART_send_string+0x8>
+		UART_transmit(*str++);
+	}
+}
+  f4:	df 91       	pop	r29
+  f6:	cf 91       	pop	r28
+  f8:	08 95       	ret
+
+000000fa <__vector_23>:
+
+ISR(USART0_TXC_vect) {
+  fa:	1f 92       	push	r1
+  fc:	0f 92       	push	r0
+  fe:	0f b6       	in	r0, 0x3f	; 63
+ 100:	0f 92       	push	r0
+ 102:	11 24       	eor	r1, r1
+ 104:	8f 93       	push	r24
+ 106:	9f 93       	push	r25
+	PORTB ^= (1<<TXLED); //blink as response of successful transmission
+ 108:	98 b3       	in	r25, 0x18	; 24
+ 10a:	82 e0       	ldi	r24, 0x02	; 2
+ 10c:	89 27       	eor	r24, r25
+ 10e:	88 bb       	out	0x18, r24	; 24
+}
+ 110:	9f 91       	pop	r25
+ 112:	8f 91       	pop	r24
+ 114:	0f 90       	pop	r0
+ 116:	0f be       	out	0x3f, r0	; 63
+ 118:	0f 90       	pop	r0
+ 11a:	1f 90       	pop	r1
+ 11c:	18 95       	reti
+
+0000011e <UART_receive>:
+
+//----------
+
+uint8_t UART_receive(){
+	//frame-error OR data-over-run OR parity-error
+	if ( UCSR0A & ((1<<FE0)|(1<<DOR0)|(1<<UPE0)) )
+ 11e:	8b b1       	in	r24, 0x0b	; 11
+ 120:	8c 71       	andi	r24, 0x1C	; 28
+ 122:	31 f4       	brne	.+12     	; 0x130 <UART_receive+0x12>
+		return -1;
+	
+	PORTB ^= (1<<RXLED); //blink led to report success of rx
+ 124:	98 b3       	in	r25, 0x18	; 24
+ 126:	84 e0       	ldi	r24, 0x04	; 4
+ 128:	89 27       	eor	r24, r25
+ 12a:	88 bb       	out	0x18, r24	; 24
+	return UDR0;
+ 12c:	8c b1       	in	r24, 0x0c	; 12
+ 12e:	08 95       	ret
+//----------
+
+uint8_t UART_receive(){
+	//frame-error OR data-over-run OR parity-error
+	if ( UCSR0A & ((1<<FE0)|(1<<DOR0)|(1<<UPE0)) )
+		return -1;
+ 130:	8f ef       	ldi	r24, 0xFF	; 255
+	
+	PORTB ^= (1<<RXLED); //blink led to report success of rx
+	return UDR0;
+}
+ 132:	08 95       	ret
+
+00000134 <__vector_19>:
+
+// Interrupt service routine for receiving data
+ISR(USART0_RXC_vect) {
+ 134:	1f 92       	push	r1
+ 136:	0f 92       	push	r0
+ 138:	0f b6       	in	r0, 0x3f	; 63
+ 13a:	0f 92       	push	r0
+ 13c:	11 24       	eor	r1, r1
+ 13e:	2f 93       	push	r18
+ 140:	3f 93       	push	r19
+ 142:	4f 93       	push	r20
+ 144:	5f 93       	push	r21
+ 146:	6f 93       	push	r22
+ 148:	7f 93       	push	r23
+ 14a:	8f 93       	push	r24
+ 14c:	9f 93       	push	r25
+ 14e:	af 93       	push	r26
+ 150:	bf 93       	push	r27
+ 152:	ef 93       	push	r30
+ 154:	ff 93       	push	r31
+	data = UART_receive();
+ 156:	0e 94 8f 00 	call	0x11e	; 0x11e <UART_receive>
+ 15a:	80 93 18 01 	sts	0x0118, r24	; 0x800118 <__data_end>
+ 15e:	ff 91       	pop	r31
+ 160:	ef 91       	pop	r30
+ 162:	bf 91       	pop	r27
+ 164:	af 91       	pop	r26
+ 166:	9f 91       	pop	r25
+ 168:	8f 91       	pop	r24
+ 16a:	7f 91       	pop	r23
+ 16c:	6f 91       	pop	r22
+ 16e:	5f 91       	pop	r21
+ 170:	4f 91       	pop	r20
+ 172:	3f 91       	pop	r19
+ 174:	2f 91       	pop	r18
+ 176:	0f 90       	pop	r0
+ 178:	0f be       	out	0x3f, r0	; 63
+ 17a:	0f 90       	pop	r0
+ 17c:	1f 90       	pop	r1
+ 17e:	18 95       	reti
+
+00000180 <main>:
+#include "drivers/UART.h"
+#include "utils.h"
+
+int main(void)
+{
+	test_UART();
+ 180:	0e 94 c5 00 	call	0x18a	; 0x18a <test_UART>
+    return 0;
+ 184:	80 e0       	ldi	r24, 0x00	; 0
+ 186:	90 e0       	ldi	r25, 0x00	; 0
+ 188:	08 95       	ret
+
+0000018a <test_UART>:
+#include "utils.h"
+#include <util\delay.h>
+
+void test_UART()
+{
+	UART_init(MYUBRR);
+ 18a:	8f e1       	ldi	r24, 0x1F	; 31
+ 18c:	90 e0       	ldi	r25, 0x00	; 0
+ 18e:	0e 94 57 00 	call	0xae	; 0xae <UART_init>
+
+	uint8_t ch = 0;
+	UART_send_string("Prova trasmissione...\n");
+ 192:	80 e0       	ldi	r24, 0x00	; 0
+ 194:	91 e0       	ldi	r25, 0x01	; 1
+ 196:	0e 94 70 00 	call	0xe0	; 0xe0 <UART_send_string>
+
+void test_UART()
+{
+	UART_init(MYUBRR);
+
+	uint8_t ch = 0;
+ 19a:	80 e0       	ldi	r24, 0x00	; 0
+	UART_send_string("Prova trasmissione...\n");
+	while(1){
+		UART_transmit(ch++);
+ 19c:	c1 e0       	ldi	r28, 0x01	; 1
+ 19e:	c8 0f       	add	r28, r24
+ 1a0:	0e 94 6c 00 	call	0xd8	; 0xd8 <UART_transmit>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1a4:	2f ef       	ldi	r18, 0xFF	; 255
+ 1a6:	8f e7       	ldi	r24, 0x7F	; 127
+ 1a8:	97 e0       	ldi	r25, 0x07	; 7
+ 1aa:	21 50       	subi	r18, 0x01	; 1
+ 1ac:	80 40       	sbci	r24, 0x00	; 0
+ 1ae:	90 40       	sbci	r25, 0x00	; 0
+ 1b0:	e1 f7       	brne	.-8      	; 0x1aa <test_UART+0x20>
+ 1b2:	00 c0       	rjmp	.+0      	; 0x1b4 <test_UART+0x2a>
+ 1b4:	00 00       	nop
+ 1b6:	8c 2f       	mov	r24, r28
+ 1b8:	f1 cf       	rjmp	.-30     	; 0x19c <test_UART+0x12>
+
+000001ba <_exit>:
+ 1ba:	f8 94       	cli
+
+000001bc <__stop_program>:
+ 1bc:	ff cf       	rjmp	.-2      	; 0x1bc <__stop_program>

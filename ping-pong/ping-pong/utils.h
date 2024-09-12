@@ -1,9 +1,7 @@
-#ifndef UTILS
-#define UTILS
-
-#include "drivers/UART.h"
+#ifndef UTILS_H_
+#define UTILS_H_
 
 void test_UART();
-void test_SRAM();
+void test_XMEM();
 
-#endif // UTILS
+#endif /* UTILS_H_ */

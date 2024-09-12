@@ -4,6 +4,8 @@
 
 drivers\UART.c
 
+drivers\XMEM.c
+
 main.c
 
 utils.c

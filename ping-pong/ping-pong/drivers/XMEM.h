@@ -1,7 +1,7 @@
 #ifndef XMEM_H_
 #define XMEM_H_
 
-#define SRAM_BASE_ADDR 0x1800
+#define XMEM_BASE_ADDR 0x1800
 
 void XMEM_init();
 void XMEM_write(uint8_t data, uint16_t addr);

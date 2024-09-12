@@ -3,5 +3,7 @@
 
 void test_UART();
 void test_XMEM();
+void test_SRAM();
+void test_NAND();
 
 #endif /* UTILS_H_ */

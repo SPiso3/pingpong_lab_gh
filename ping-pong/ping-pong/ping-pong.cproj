@@ -56,6 +56,17 @@
     </com_atmel_avrdbg_tool_atmelice>
     <avrtoolinterface>JTAG</avrtoolinterface>
     <avrtoolinterfaceclock>200000</avrtoolinterfaceclock>
+    <custom>
+      <ToolOptions xmlns="">
+        <InterfaceProperties>
+        </InterfaceProperties>
+        <InterfaceName>JTAG</InterfaceName>
+      </ToolOptions>
+      <ToolType xmlns="">custom</ToolType>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <ToolName xmlns="">Custom Programming Tool</ToolName>
+    </custom>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -126,6 +137,18 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="drivers\ADC.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\ADC.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\gamepad.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\gamepad.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="drivers\UART.c">
       <SubType>compile</SubType>
     </Compile>

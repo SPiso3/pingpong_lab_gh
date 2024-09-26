@@ -1,8 +1,4 @@
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <stdio.h>
 #include "UART.h"
-#include <util/delay.h>
 
 volatile char received_data; //to store rx data that can change at anytime (external) use volatile
 

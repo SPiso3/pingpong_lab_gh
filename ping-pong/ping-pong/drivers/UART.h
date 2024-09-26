@@ -4,8 +4,13 @@
 #define F_CPU 4915200UL //4.9152 MHz
 #define BAUD 9600
 #define MYUBRR F_CPU/16/BAUD-1
-#define TXLED PB0
+#define TXLED PB2
 #define RXLED PB1
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <stdio.h>
+#include <util/delay.h>
 
 void UART_init(unsigned int ubrr);
 

@@ -164,15 +164,19 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="utils.c">
+    <Compile Include="misc\fonts.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="utils.h">
+    <Compile Include="misc\utils.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\utils.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="drivers" />
+    <Folder Include="misc" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

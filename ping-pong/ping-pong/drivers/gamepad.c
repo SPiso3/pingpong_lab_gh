@@ -1,8 +1,13 @@
 #include "gamepad.h"
 
+void JOY_init(){
+	DDRD &= ~(1<<JOY_BUTTON); //busy input active low
+	PORTD |= (1<<JOY_BUTTON); //pull-up resistor
+	}
+
 pos_t JOY_calibrate(){
 	//should have already initialized XMEM, UART, ADC
-	printf("\n\rGamePad calibration v 0.1\n\r");
+	printf("\n\rGamePad calibration v0.1\n\r");
 	printf("CENTER : ");
 	uint16_t x = 0;
 	uint16_t y = 0;
@@ -33,13 +38,9 @@ dir JOY_get_dir(pos_t rel_pos){
 		return IDLE;
 	}
 	else if (abs(rel_pos.y) > abs(rel_pos.x)){
-		if (rel_pos.y > 0){ return UP; }
-		else {				return DOWN; }
+		return (rel_pos.y > 0) ? UP : DOWN;
 	}
-	else{
-		if (rel_pos.x > 0){ return RIGHT; }
-		else {				return LEFT; }
-	}
+	return (rel_pos.x > 0) ? RIGHT : LEFT;
 }
 
 pos_t JOY_get_sliders(){

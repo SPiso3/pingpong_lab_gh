@@ -2,7 +2,6 @@
 
 void test_UART(){
 	UART_init(MYUBRR);
-	
 	printf("\nProva trasmissione\n\r");
 	int n = 0;
 	while(1){
@@ -15,8 +14,8 @@ void test_SRAM(void)
 {	
 	XMEM_init();
 	UART_init(MYUBRR);
-	volatile char *ext_ram = (char *) 0x1800; // Start address for the SRAM
-	uint16_t ext_ram_size = 0x900;
+	volatile char *ext_ram = (char *) SRAM_BASE_ADDR; // Start address for the SRAM
+	uint16_t ext_ram_size = 0x800;
 	uint16_t write_errors = 0;
 	uint16_t retrieval_errors = 0;
 	printf("Starting SRAM test...\n\r");
@@ -55,7 +54,7 @@ void test_XMEM(void){
 	
 	printf("\nOLED ZONE...\n\r");
 	_delay_ms(2000);
-	for(uint16_t addr = 0x000; addr<0x3FF; addr += 0x02){
+	for(uint16_t addr = 0x100; addr<0x3FF; addr += 0x02){
 		ext_mem[addr] = 0xAB;
 		uint8_t ret_val = ext_mem[addr];
 		printf("addr[%4x] = %02X\n\r", addr, ret_val);
@@ -86,11 +85,40 @@ void test_ADC(){
 	while(1){
 		ADC_sample4();
 		
-		printf("\x1B[2J\x1b[H");
+		printf("\033[2J\033[H");
 		printf("vertical %d\n\r",ADC_read());
 		printf("horizont %d\n\r",ADC_read());
 		printf("slider L %d\n\r",ADC_read());
 		printf("slider R %d\n\r",ADC_read());
 		_delay_ms(100);
 	}
-}	
+}
+
+void test_JOYSTICK(){
+	UART_init(MYUBRR);
+	XMEM_init();
+	ADC_init();
+	JOY_init();
+	
+	pos_t center = JOY_calibrate();
+	_delay_ms(1000);
+	
+	while(1){
+		pos_t pos = JOY_get_rel_pos(center);
+		dir direction = JOY_get_dir(pos);
+		pos_t sliders = JOY_get_sliders();
+		
+		printf("\033[2J\033[H");
+		printf("x %d\n\r",pos.x);
+		printf("y %d\n\r",pos.y);
+		
+		printf("DIR: %d\n\r",direction);
+		
+		printf("sliderL %d\n\r",sliders.x);
+		printf("sliderR %d\n\r",sliders.y);
+		
+		printf("BTN: %d\n\r",(PIND & (1<<JOY_BUTTON))>>JOY_BUTTON);
+		
+		_delay_ms(100);
+	}
+}

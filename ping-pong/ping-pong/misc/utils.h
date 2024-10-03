@@ -6,14 +6,16 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include "drivers/UART.h"
-#include "drivers/XMEM.h"
-#include "drivers/ADC.h"
+#include "../drivers/UART.h"
+#include "../drivers/XMEM.h"
+#include "../drivers/ADC.h"
+#include "../drivers/gamepad.h"
 #include <util/delay.h>
 
 void test_UART();
 void test_SRAM();
 void test_XMEM();
 void test_ADC();
+void test_JOYSTICK();
 
 #endif /* UTILS_H_ */

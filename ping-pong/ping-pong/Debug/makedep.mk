@@ -2,13 +2,15 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-drivers\ADC.c
+drivers\src\ADC.c
 
-drivers\gamepad.c
+drivers\src\gamepad.c
 
-drivers\UART.c
+drivers\src\OLED.c
 
-drivers\XMEM.c
+drivers\src\UART.c
+
+drivers\src\XMEM.c
 
 main.c
 

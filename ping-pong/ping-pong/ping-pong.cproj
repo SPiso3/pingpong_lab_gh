@@ -40,13 +40,14 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
-    <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
-    <avrtoolserialnumber>J41800035682</avrtoolserialnumber>
+    <avrtool>custom</avrtool>
+    <avrtoolserialnumber>
+    </avrtoolserialnumber>
     <avrdeviceexpectedsignature>0x1E9404</avrdeviceexpectedsignature>
     <com_atmel_avrdbg_tool_atmelice>
       <ToolOptions>
         <InterfaceProperties>
-          <JtagDbgClock>200000</JtagDbgClock>
+          <JtagDbgClock>0</JtagDbgClock>
         </InterfaceProperties>
         <InterfaceName>JTAG</InterfaceName>
       </ToolOptions>
@@ -55,7 +56,7 @@
       <ToolName>Atmel-ICE</ToolName>
     </com_atmel_avrdbg_tool_atmelice>
     <avrtoolinterface>JTAG</avrtoolinterface>
-    <avrtoolinterfaceclock>200000</avrtoolinterfaceclock>
+    <avrtoolinterfaceclock>0</avrtoolinterfaceclock>
     <custom>
       <ToolOptions xmlns="">
         <InterfaceProperties>
@@ -137,28 +138,34 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="drivers\ADC.c">
+    <Compile Include="drivers\include\ADC.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\ADC.h">
+    <Compile Include="drivers\include\gamepad.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\gamepad.c">
+    <Compile Include="drivers\include\OLED.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\gamepad.h">
+    <Compile Include="drivers\include\UART.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\UART.c">
+    <Compile Include="drivers\include\XMEM.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\UART.h">
+    <Compile Include="drivers\src\ADC.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\XMEM.c">
+    <Compile Include="drivers\src\gamepad.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\XMEM.h">
+    <Compile Include="drivers\src\OLED.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\src\UART.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\src\XMEM.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
@@ -176,6 +183,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="drivers" />
+    <Folder Include="drivers\include" />
+    <Folder Include="drivers\src" />
     <Folder Include="misc" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />

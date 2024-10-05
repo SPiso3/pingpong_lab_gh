@@ -1,4 +1,4 @@
-#include "UART.h"
+#include "../include/UART.h"
 
 volatile char received_data; //to store rx data that can change at anytime (external) use volatile
 

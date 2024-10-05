@@ -6,10 +6,10 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include "../drivers/UART.h"
-#include "../drivers/XMEM.h"
-#include "../drivers/ADC.h"
-#include "../drivers/gamepad.h"
+#include "../drivers/include/UART.h"
+#include "../drivers/include/XMEM.h"
+#include "../drivers/include/ADC.h"
+#include "../drivers/include/gamepad.h"
 #include <util/delay.h>
 
 void test_UART();

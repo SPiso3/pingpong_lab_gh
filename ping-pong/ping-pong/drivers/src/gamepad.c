@@ -1,4 +1,4 @@
-#include "gamepad.h"
+#include "../include/gamepad.h"
 
 void JOY_init(){
 	DDRD &= ~(1<<JOY_BUTTON); //busy input active low

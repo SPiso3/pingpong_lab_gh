@@ -1,5 +1,5 @@
-#include "ADC.h"
-#include "XMEM.h"
+#include "../include/XMEM.h"
+#include "../include/ADC.h"
 
 void ADC_init(){
 	DDRB |= (1<<ADC_CLOCK); //clock
@@ -18,7 +18,7 @@ bool ADC_is_busy(){
 
 uint8_t ADC_read_channel(uint8_t channel){
 	volatile char *adc = (char *) ADC_BASE_ADDR;
-	uint8_t ret_val;
+	uint8_t ret_val = 0;
 	for(uint8_t i=0; (i<ADC_CHANNELS) && (i<=channel); i++){
 		ret_val = adc[0x0000]; //discard first channel-1 values
 	}

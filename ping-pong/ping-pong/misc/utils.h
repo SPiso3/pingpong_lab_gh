@@ -12,6 +12,9 @@
 #include "../drivers/include/gamepad.h"
 #include <util/delay.h>
 
+#define MAX(a,b) ((a >= b) ? a : b)
+#define MIN(a,b) ((a <= b) ? a : b)
+
 void test_UART();
 void test_SRAM();
 void test_XMEM();

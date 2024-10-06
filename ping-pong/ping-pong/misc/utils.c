@@ -106,7 +106,7 @@ void test_JOYSTICK(){
 	while(1){
 		pos_t pos = JOY_get_rel_pos(center);
 		dir direction = JOY_get_dir(pos);
-		pos_t sliders = JOY_get_sliders();
+		sliders_t sliders = JOY_get_sliders();
 		
 		printf("\033[2J\033[H");
 		printf("x %d\n\r",pos.x);
@@ -114,8 +114,8 @@ void test_JOYSTICK(){
 		
 		printf("DIR: %d\n\r",direction);
 		
-		printf("sliderL %d\n\r",sliders.x);
-		printf("sliderR %d\n\r",sliders.y);
+		printf("sliderL %d\n\r",sliders.left);
+		printf("sliderR %d\n\r",sliders.right);
 		
 		printf("BTN: %d\n\r",(PIND & (1<<JOY_BUTTON))>>JOY_BUTTON);
 		

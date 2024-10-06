@@ -5,7 +5,7 @@
 void OLED_init(){
 	OLED_write_cmd(0xAE);    //OFF
 	
-	//!!! DONT TOUCH THESE SETTINGS !!! ---------- (from datasheet)
+	//!!! DONT TOUCH THESE SETTINGS !!! --------- (from datasheet)
 	OLED_write_cmd(0xa1);    //segment remap
 	OLED_write_cmd(0xda);    //common pads hardware: alternative
 	OLED_write_cmd(0x12);
@@ -42,12 +42,18 @@ void OLED_goto_row(uint8_t row){
 	OLED_write_cmd(0xB0 + row);
 }
 void OLED_goto_col(uint8_t col){
-	OLED_write_cmd(col & 0x0F); // Set low nibble col address : 00-0F
-	OLED_write_cmd(0x10 | (col >> 4));   // Set high nibble col address : 10-1F
+	OLED_write_cmd(col & 0x0F);			// Set low nibble col address : 00-0F
+	OLED_write_cmd(0x10 | (col >> 4));	// Set high nibble col address : 10-1F
 }
 void OLED_goto_pos(uint8_t row, uint8_t col) {
 	OLED_goto_row(row);
 	OLED_goto_col(col);
+}
+oled_pos_t OLED_get_addr(uint8_t x, uint8_t y) {
+	uint8_t col = x;
+	uint8_t row = y/8;
+	uint8_t bit = y%8;
+	return (oled_pos_t){col, row, bit};
 }
 
 //--clearing
@@ -63,6 +69,11 @@ void OLED_clear(){
 		OLED_clear_row(page);
 	}
 }
+void OLED_fill(){
+	for (uint8_t page = 0; page < 8; page++) {
+		OLED_clear_row(page);
+	}
+}
 
 //--utilities
 
@@ -71,8 +82,8 @@ void OLED_reset() {
 	OLED_goto_pos(0,0);
 }
 
-void OLED_print_8char(unsigned char c){
-	c = c-32;
+void OLED_print_8char(uint8_t c){
+	c -= 32;
 	for (uint8_t i=0; i<8; i++){
 		uint8_t byte = pgm_read_byte(&font8[c][i]);
 		OLED_write_data(byte);

@@ -22,8 +22,8 @@ main.d main.o: .././main.c .././misc/utils.h \
  .././misc/../drivers/include/XMEM.h .././misc/../drivers/include/ADC.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h \
  .././misc/../drivers/include/gamepad.h \
- .././misc/../drivers/include/ADC.h .././drivers/include/OLED.h \
- .././drivers/include/../include/XMEM.h \
+ .././misc/../drivers/include/../include/ADC.h \
+ .././drivers/include/OLED.h .././drivers/include/../include/XMEM.h \
  .././drivers/include/../include/OLED.h
 
 .././misc/utils.h:
@@ -76,7 +76,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 
 .././misc/../drivers/include/gamepad.h:
 
-.././misc/../drivers/include/ADC.h:
+.././misc/../drivers/include/../include/ADC.h:
 
 .././drivers/include/OLED.h:
 

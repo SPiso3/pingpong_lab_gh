@@ -6,5 +6,5 @@ int main(void) {
 	XMEM_init();
 	OLED_init();
 	OLED_reset();
-	OLED_clear();
+	test_JOYSTICK();
 }

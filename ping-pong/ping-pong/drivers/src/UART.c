@@ -2,6 +2,9 @@
 
 volatile char received_data; //to store rx data that can change at anytime (external) use volatile
 
+//stdout redirection
+FILE *uart_output;
+
 //--------
 
 void UART_init(unsigned int ubrr) {
@@ -14,8 +17,7 @@ void UART_init(unsigned int ubrr) {
 	
 	UCSR0C = (1 << URSEL0) | (1 << USBS0) | (3<<UCSZ00); //frame format: 8 data bits, 2 stop bit, parity: none
 	
-	// redirecting stout
-	FILE *uart_output = fdevopen(UART_putchar, NULL);
+	uart_output = fdevopen(UART_putchar, NULL);
 	stdout = uart_output;
 	
 	sei();  //re-enable global interrupt

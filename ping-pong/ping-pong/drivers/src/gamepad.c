@@ -29,13 +29,14 @@ pos_t JOY_get_rel_pos(pos_t center){
 	int16_t y = ADC_read() - center.y;
 	int16_t x = ADC_read() - center.x;
 
-	y *= POS_SCALE / ((x > 0) ? (255-center.x) : (0+center.x));
-	x *= POS_SCALE / ((x > 0) ? (255-center.x) : (0+center.x));
+	y = y * POS_SCALE / ((y > 0) ? (255-center.y) : (0+center.y));
+	x = x * POS_SCALE / ((x > 0) ? (255-center.x) : (0+center.x));
+	
 	
 	y = MAX(-POS_SCALE,MIN(y,POS_SCALE));
 	x = MAX(-POS_SCALE,MIN(x,POS_SCALE));
 	
-	return (pos_t){(int8_t)x, (int8_t)y};
+	return (pos_t){x, y};
 }
 
 dir JOY_get_dir(pos_t rel_pos){

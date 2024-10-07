@@ -22,7 +22,11 @@ misc/utils.d misc/utils.o: ../misc/utils.c ../misc/utils.h \
  ../misc/../drivers/include/XMEM.h ../misc/../drivers/include/ADC.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h \
  ../misc/../drivers/include/gamepad.h \
- ../misc/../drivers/include/../include/ADC.h
+ ../misc/../drivers/include/../include/ADC.h \
+ ../misc/../drivers/include/OLED.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
+ ../misc/../drivers/include/../include/XMEM.h \
+ ../misc/../drivers/include/../include/OLED.h
 
 ../misc/utils.h:
 
@@ -75,3 +79,11 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 ../misc/../drivers/include/gamepad.h:
 
 ../misc/../drivers/include/../include/ADC.h:
+
+../misc/../drivers/include/OLED.h:
+
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
+
+../misc/../drivers/include/../include/XMEM.h:
+
+../misc/../drivers/include/../include/OLED.h:

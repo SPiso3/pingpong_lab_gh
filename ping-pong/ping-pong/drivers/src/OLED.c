@@ -2,6 +2,9 @@
 #include "../include/OLED.h"
 #include "../../misc/fonts.h"
 
+//printf redirection
+FILE *oled_output;
+
 void OLED_init(){
 	OLED_write_cmd(0xAE);    //OFF
 	
@@ -26,14 +29,16 @@ void OLED_init(){
 	OLED_write_cmd(0x00);	
 	
 	OLED_write_cmd(0x20);   //Set Memory Addressing Mode
-	OLED_write_cmd(0b10);	//PAGE addressing mode => col: auto, page: manual - if arrive at the end re-begin writing on the same page
+	OLED_write_cmd(0b00);	//PAGE addressing mode => HORIZ
 	
 	OLED_write_cmd(0x81);   //contrast control
 	OLED_write_cmd(0x50);	//contr lvl : 0-255
 	
-	OLED_write_cmd(0xA6);    //A6 = normal B&W (A5 = inverse W&B)
+	OLED_write_cmd(0xA6);    //A6 = normal B&W (A7 = inverse W&B)
 	OLED_write_cmd(0xA4);    //resume GDDRAM content (A5 = blank screen ON)
 	OLED_write_cmd(0xAF);    //ON
+	
+	oled_output = fdevopen(OLED_putchar8, NULL);
 }
 
 //--positioning
@@ -69,11 +74,6 @@ void OLED_clear(){
 		OLED_clear_row(page);
 	}
 }
-void OLED_fill(){
-	for (uint8_t page = 0; page < 8; page++) {
-		OLED_clear_row(page);
-	}
-}
 
 //--utilities
 
@@ -82,10 +82,22 @@ void OLED_reset() {
 	OLED_goto_pos(0,0);
 }
 
-void OLED_print_8char(uint8_t c){
-	c -= 32;
+void OLED_print_8char(char c){
+	c = c - 32;
 	for (uint8_t i=0; i<8; i++){
-		uint8_t byte = pgm_read_byte(&font8[c][i]);
+		unsigned char byte = pgm_read_byte(&font8[(uint8_t)c][i]);
+		OLED_write_data((uint8_t)byte);
+	}
+}
+int OLED_putchar8(char c, FILE *stream){
+	OLED_print_8char(c);
+	return 0;
+}
+
+void OLED_print_figure(uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
+	OLED_reset();
+	for(int i=0; i<128*8; i++){
+		unsigned char byte = pgm_read_byte(&joystick_img[i]);
 		OLED_write_data(byte);
 	}
 }

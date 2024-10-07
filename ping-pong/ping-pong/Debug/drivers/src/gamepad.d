@@ -25,7 +25,11 @@ drivers/src/gamepad.d drivers/src/gamepad.o: ../drivers/src/gamepad.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
  ../drivers/src/../../misc/../drivers/include/XMEM.h \
  ../drivers/src/../../misc/../drivers/include/ADC.h \
- ../drivers/src/../../misc/../drivers/include/gamepad.h
+ ../drivers/src/../../misc/../drivers/include/gamepad.h \
+ ../drivers/src/../../misc/../drivers/include/OLED.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
+ ../drivers/src/../../misc/../drivers/include/../include/XMEM.h \
+ ../drivers/src/../../misc/../drivers/include/../include/OLED.h
 
 ../drivers/src/../include/gamepad.h:
 
@@ -80,3 +84,11 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../drivers/src/../../misc/../drivers/include/ADC.h:
 
 ../drivers/src/../../misc/../drivers/include/gamepad.h:
+
+../drivers/src/../../misc/../drivers/include/OLED.h:
+
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
+
+../drivers/src/../../misc/../drivers/include/../include/XMEM.h:
+
+../drivers/src/../../misc/../drivers/include/../include/OLED.h:

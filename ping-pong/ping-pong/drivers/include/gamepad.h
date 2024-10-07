@@ -5,13 +5,13 @@
 #include "../include/ADC.h"
 
 #define CALIB_SAMPLES 8
-#define IDLE_VAL 50
 #define JOY_BUTTON PD5
 #define POS_SCALE 127
+#define IDLE_VAL (POS_SCALE/2)
 
 typedef struct{
-	int8_t x;
-	int8_t y;
+	int16_t x;
+	int16_t y;
 	} pos_t;
 	
 typedef struct{

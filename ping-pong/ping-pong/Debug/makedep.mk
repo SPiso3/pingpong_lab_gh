@@ -12,7 +12,7 @@ drivers\src\UART.c
 
 drivers\src\XMEM.c
 
-main.c
+misc\main.c
 
 misc\utils.c
 

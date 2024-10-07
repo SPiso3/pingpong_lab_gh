@@ -1,7 +1,9 @@
 #ifndef OLED_H_
 #define OLED_H_
 
+#include <stdio.h>
 #include <avr/io.h>
+#include <string.h>
 #include "../include/XMEM.h"
 #include "../include/OLED.h"
 
@@ -24,7 +26,10 @@ void OLED_clear_row(uint8_t row);
 void OLED_clear();
 
 void OLED_reset();
-void OLED_print_8char(uint8_t c);
+void OLED_print_8char(char c);
+int OLED_putchar8(char c, FILE *stream);
+
+void OLED_print_figure(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
 
 void OLED_write_cmd(uint8_t cmd);
 void OLED_write_data(uint8_t data);

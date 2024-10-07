@@ -1,5 +1,7 @@
 #include "utils.h"
 
+extern FILE *oled_output;
+
 void test_UART(){
 	UART_init(MYUBRR);
 	printf("\nProva trasmissione\n\r");
@@ -121,4 +123,61 @@ void test_JOYSTICK(){
 		
 		_delay_ms(100);
 	}
+}
+
+void test_OLED(){
+	UART_init(MYUBRR);
+	XMEM_init();
+	OLED_init();
+	OLED_reset();
+	
+	/*
+	for(int p=0; p<8; p++){
+		OLED_goto_pos(p,p*8);
+		for(int c=0; c<8; c++){
+			OLED_write_data(0xFF);
+			_delay_ms(50);
+		}
+	}
+	
+	OLED_goto_pos(7,128-8);
+	for(int c=0; c<8; c++)
+		OLED_write_data(0xFF);
+	_delay_ms(100);
+	
+	OLED_goto_pos(0,128-8);
+	for(int c=0; c<8; c++)
+	OLED_write_data(0xFF);
+	_delay_ms(100);
+	
+	_delay_ms(200);
+	OLED_write_cmd(0xA7);
+	
+	_delay_ms(200);
+	OLED_write_cmd(0xA6);
+	
+	_delay_ms(200);
+	OLED_write_cmd(0xA7);
+	
+	_delay_ms(200);
+	OLED_write_cmd(0xA6);
+	
+	_delay_ms(1000);
+	OLED_reset();
+	
+	fprintf(oled_output, "prova ...");
+	_delay_ms(1000);
+	OLED_reset();
+	*/
+	
+	OLED_print_figure(0,0,64,8);
+	_delay_ms(2000);
+	
+	/*
+	char value = ' ';
+	while(value < ' ' + 95){
+		fprintf(oled_output, "%c",value++);
+		_delay_ms(50);
+	}
+	*/
 }

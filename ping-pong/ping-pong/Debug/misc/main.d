@@ -1,4 +1,4 @@
-main.d main.o: .././main.c .././misc/utils.h \
+misc/main.d misc/main.o: ../misc/main.c ../misc/utils.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -15,18 +15,20 @@ main.d main.o: .././main.c .././misc/utils.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
- .././misc/../drivers/include/UART.h \
+ ../misc/../drivers/include/UART.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
- .././misc/../drivers/include/XMEM.h .././misc/../drivers/include/ADC.h \
+ ../misc/../drivers/include/XMEM.h ../misc/../drivers/include/ADC.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h \
- .././misc/../drivers/include/gamepad.h \
- .././misc/../drivers/include/../include/ADC.h \
- .././drivers/include/OLED.h .././drivers/include/../include/XMEM.h \
- .././drivers/include/../include/OLED.h
+ ../misc/../drivers/include/gamepad.h \
+ ../misc/../drivers/include/../include/ADC.h \
+ ../misc/../drivers/include/OLED.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
+ ../misc/../drivers/include/../include/XMEM.h \
+ ../misc/../drivers/include/../include/OLED.h
 
-.././misc/utils.h:
+../misc/utils.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -60,7 +62,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h:
 
-.././misc/../drivers/include/UART.h:
+../misc/../drivers/include/UART.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h:
 
@@ -68,18 +70,20 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h:
 
-.././misc/../drivers/include/XMEM.h:
+../misc/../drivers/include/XMEM.h:
 
-.././misc/../drivers/include/ADC.h:
+../misc/../drivers/include/ADC.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h:
 
-.././misc/../drivers/include/gamepad.h:
+../misc/../drivers/include/gamepad.h:
 
-.././misc/../drivers/include/../include/ADC.h:
+../misc/../drivers/include/../include/ADC.h:
 
-.././drivers/include/OLED.h:
+../misc/../drivers/include/OLED.h:
 
-.././drivers/include/../include/XMEM.h:
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
 
-.././drivers/include/../include/OLED.h:
+../misc/../drivers/include/../include/XMEM.h:
+
+../misc/../drivers/include/../include/OLED.h:

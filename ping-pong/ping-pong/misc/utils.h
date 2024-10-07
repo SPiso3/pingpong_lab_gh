@@ -11,6 +11,7 @@
 #include "../drivers/include/ADC.h"
 #include "../drivers/include/gamepad.h"
 #include "../drivers/include/OLED.h"
+#include "../drivers/include/menu.h"
 #include <util/delay.h>
 
 #define MAX(a,b) ((a >= b) ? a : b)
@@ -22,5 +23,6 @@ void test_XMEM();
 void test_ADC();
 void test_JOYSTICK();
 void test_OLED();
+void test_MENU();
 
 #endif /* UTILS_H_ */

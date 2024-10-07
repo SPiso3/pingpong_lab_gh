@@ -181,3 +181,11 @@ void test_OLED(){
 	}
 	*/
 }
+
+void test_MENU(){
+	UART_init(MYUBRR);
+	XMEM_init();
+	OLED_init();
+	JOY_init();
+	menu_init();
+}

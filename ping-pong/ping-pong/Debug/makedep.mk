@@ -4,6 +4,8 @@
 
 drivers\src\ADC.c
 
+drivers\src\menu.c
+
 drivers\src\gamepad.c
 
 drivers\src\OLED.c

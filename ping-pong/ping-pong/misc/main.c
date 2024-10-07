@@ -2,5 +2,5 @@
 #include "../drivers/include/OLED.h"
 
 int main(void) {
-	test_OLED();
+	test_MENU();
 }

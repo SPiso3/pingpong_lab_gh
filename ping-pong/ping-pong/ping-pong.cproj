@@ -143,6 +143,9 @@
     <Compile Include="drivers\include\gamepad.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="drivers\include\menu.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="drivers\include\OLED.h">
       <SubType>compile</SubType>
     </Compile>
@@ -153,6 +156,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="drivers\src\ADC.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\src\menu.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="drivers\src\gamepad.c">

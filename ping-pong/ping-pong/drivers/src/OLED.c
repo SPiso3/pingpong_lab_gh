@@ -1,9 +1,11 @@
+#include <stdbool.h>
 #include "../include/XMEM.h"
 #include "../include/OLED.h"
 #include "../../misc/fonts.h"
 
 //printf redirection
 FILE *oled_output;
+bool OLED_INVERTED = false;
 
 void OLED_init(){
 	OLED_write_cmd(0xAE);    //OFF
@@ -27,18 +29,20 @@ void OLED_init(){
 	
 	OLED_write_cmd(0xD3);	//set display offset
 	OLED_write_cmd(0x00);	
+	OLED_write_cmd(0x40);
 	
 	OLED_write_cmd(0x20);   //Set Memory Addressing Mode
-	OLED_write_cmd(0b00);	//PAGE addressing mode => HORIZ
+	OLED_write_cmd(0b00);	//PAGE addressing mode => HORIZ -- all auto
 	
 	OLED_write_cmd(0x81);   //contrast control
-	OLED_write_cmd(0x50);	//contr lvl : 0-255
+	OLED_write_cmd(0xFF);	//contr lvl : 0-255
 	
 	OLED_write_cmd(0xA6);    //A6 = normal B&W (A7 = inverse W&B)
 	OLED_write_cmd(0xA4);    //resume GDDRAM content (A5 = blank screen ON)
 	OLED_write_cmd(0xAF);    //ON
 	
 	oled_output = fdevopen(OLED_putchar8, NULL);
+	OLED_reset();
 }
 
 //--positioning
@@ -70,6 +74,8 @@ void OLED_clear_row(uint8_t row) {
 	}
 }
 void OLED_clear(){
+	//OLED_restrict_cols(0,127);
+	//OLED_restrict_pages(0,7);
 	for (uint8_t page = 0; page < 8; page++) {
 		OLED_clear_row(page);
 	}
@@ -79,8 +85,29 @@ void OLED_clear(){
 
 void OLED_reset() {
 	OLED_clear();
+	OLED_restrict_cols(0,127);
+	OLED_restrict_pages(0,7);
 	OLED_goto_pos(0,0);
 }
+
+void OLED_invert() {
+	OLED_INVERTED ? OLED_write_cmd(0xA6) : OLED_write_cmd(0xA7); //normal : inverted
+	OLED_INVERTED = !OLED_INVERTED;
+}
+
+void OLED_restrict_cols(uint8_t init_col, uint8_t end_col) {
+	OLED_write_cmd(0x21);
+	OLED_write_cmd(init_col);
+	OLED_write_cmd(end_col);
+}
+
+void OLED_restrict_pages(uint8_t init_page, uint8_t end_page) {
+	OLED_write_cmd(0x22);
+	OLED_write_cmd(init_page);
+	OLED_write_cmd(end_page);
+}
+
+//----
 
 void OLED_print_8char(char c){
 	c = c - 32;
@@ -95,8 +122,9 @@ int OLED_putchar8(char c, FILE *stream){
 }
 
 void OLED_print_figure(uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
-	OLED_reset();
-	for(int i=0; i<128*8; i++){
+	OLED_restrict_cols(x,x+width-1);
+	OLED_restrict_pages(y,y+height/8-1);
+	for(int i=0; i<width*height/8; i++){
 		unsigned char byte = pgm_read_byte(&joystick_img[i]);
 		OLED_write_data(byte);
 	}

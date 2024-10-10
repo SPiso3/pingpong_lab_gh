@@ -1,12 +1,14 @@
 #include "../include/gamepad.h"
 #include "../../misc/utils.h"
+extern pos_t gamepad_center;
 
 void JOY_init(){
 	DDRD &= ~(1<<JOY_BUTTON); //busy input active low
 	PORTD |= (1<<JOY_BUTTON); //pull-up resistor
+	JOY_calibrate();
 	}
 
-pos_t JOY_calibrate(){
+void JOY_calibrate(){
 	//should have already initialized XMEM, UART, ADC
 	printf("\n\rcalibrating gamepad... ");
 	uint16_t x = 0;
@@ -21,16 +23,17 @@ pos_t JOY_calibrate(){
 	x /= CALIB_SAMPLES;
 	
 	printf("done. CENTER = [%d,%d]\n\r",x,y);
-	return (pos_t){x,y};
+	gamepad_center.x = x;
+	gamepad_center.y = y;
 }
 
-pos_t JOY_get_rel_pos(pos_t center){
+pos_t JOY_get_rel_pos(){
 	ADC_sample4();
-	int16_t y = ADC_read() - center.y;
-	int16_t x = ADC_read() - center.x;
+	int16_t y = ADC_read() - gamepad_center.y;
+	int16_t x = ADC_read() - gamepad_center.x;
 
-	y = y * POS_SCALE / ((y > 0) ? (255-center.y) : (0+center.y));
-	x = x * POS_SCALE / ((x > 0) ? (255-center.x) : (0+center.x));
+	y = y * POS_SCALE / ((y > 0) ? (255-gamepad_center.y) : (0+gamepad_center.y));
+	x = x * POS_SCALE / ((x > 0) ? (255-gamepad_center.x) : (0+gamepad_center.x));
 	
 	
 	y = MAX(-POS_SCALE,MIN(y,POS_SCALE));
@@ -39,7 +42,9 @@ pos_t JOY_get_rel_pos(pos_t center){
 	return (pos_t){x, y};
 }
 
-dir JOY_get_dir(pos_t rel_pos){
+dir JOY_get_dir(){
+	pos_t rel_pos = JOY_get_rel_pos();
+	
 	if ((abs(rel_pos.x) <= IDLE_VAL) && (abs(rel_pos.y) <= IDLE_VAL)){
 		return IDLE;
 	}

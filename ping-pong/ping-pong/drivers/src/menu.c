@@ -2,31 +2,77 @@
 
 extern FILE *oled_output;
 
-void menu_init(){
-	menu_ptr menu_null = (menu_ptr)malloc(sizeof(menu_t));
-	menu_ptr menu_highscore = menu_add(menu_null, "HIGH SCORE", NULL);
-	menu_ptr menu_play = menu_add(menu_null, "PLAY", NULL);
-	menu_ptr menu_play1 = menu_add(menu_play, "PLAY1", &test_OLED);
-	menu_ptr menu_play2 = menu_add(menu_play, "PLAY2", NULL);
-	menu_ptr current = menu_null;
-	menu_mainf(current);
+void image_1(){
+	OLED_clear();
+	OLED_print_figure(32,0,64,64);
+	_delay_ms(2000);
 }
 
-void menu_mainf(menu_ptr current){
+void image_2v2(){
+	OLED_clear();
+	OLED_print_figure(0,0,64,64);
+	OLED_print_figure(64,0,64,64);
+	_delay_ms(2000);
+}
+
+void multiplayer(){
+	OLED_clear();
+	OLED_print_figure(0,0,64,64);
+	OLED_print_figure(64,0,64,64);
+	OLED_print_figure(32,0,64,64);
+	_delay_ms(2000);
+}
+
+void menu_init(){
+	menu_t menu_null = {"root",NULL,NULL,{NULL},0};
+	
+	menu_add(&menu_null, "HIGH SCORE", NULL);
+	menu_ptr menu_play = menu_add(&menu_null, "PLAY", NULL);
+	menu_ptr menu_test = menu_add(&menu_null, "TEST", NULL);
+	
+	menu_add(menu_play, "1v1", &image_1);
+	menu_add(menu_play, "2v2", &image_2v2);
+	menu_add(menu_play, "multiplayer", &multiplayer);
+	
+	menu_add(menu_test, "UART", &test_UART);
+	menu_add(menu_test, "SRAM", &test_SRAM);
+	menu_add(menu_test, "XMEM", &test_XMEM);
+	menu_add(menu_test, "ADC", &test_ADC);
+	menu_add(menu_test, "JOYSTICK", &test_JOYSTICK);
+	menu_add(menu_test, "OLED", &test_OLED);
+	
+	/*
+	void test_UART();
+	void test_SRAM();
+	void test_XMEM();
+	void test_ADC();
+	void test_JOYSTICK();
+	void test_OLED();
+	void test_MENU();
+	*/
+	
+	menu_ptr current = &menu_null;
+	menu_loop(current);
+}
+
+void menu_loop(menu_ptr current){
 	uint8_t selected_subM = 0;
-	pos_t center = JOY_calibrate();
 	while(1){
-		_delay_ms(500);
-		OLED_reset();
-		update_menu(current, selected_subM);
-		pos_t pos = JOY_get_rel_pos(center);
-		dir direction = JOY_get_dir(pos);
+		_delay_ms(100);
+		
+		dir direction = JOY_get_dir();
 		switch(direction){
 			case UP:
-				if (selected_subM=!0) selected_subM--;
+				if (selected_subM>0)
+					selected_subM--;
+				else
+					selected_subM = 0;
 				break;
 			case DOWN:
-				if (selected_subM<(current->subM_n)-1) selected_subM++;
+				if (selected_subM<(current->subM_n)-1)
+					selected_subM++;
+				else
+					selected_subM = (current->subM_n)-1;
 				break;
 			case LEFT:
 				if(current->parent != NULL){
@@ -35,50 +81,49 @@ void menu_mainf(menu_ptr current){
 				}
 				break;
 			case RIGHT:
-				if(current->function!= NULL)
-					current->function();
+				if(current->subMenu[selected_subM]->function != NULL)
+					current->subMenu[selected_subM]->function();
 				else{
-					current = current->subMenu[selected_subM];
-					selected_subM = 0;
+					if(current->subMenu[selected_subM]->subMenu[0] != NULL){
+						current = current->subMenu[selected_subM];
+						selected_subM = 0;
+					}
 				}
 				break;
-			case IDLE:
+			default:
 				break;
 		}
+		
+		OLED_reset();
+		display_menu(current, selected_subM);
 	}
 	
 }
 
 //--private
 
-void update_menu(menu_ptr m, uint8_t arrow_pos){
-	uint8_t i = 0;
-	OLED_reset();
-	while(i < m->subM_n){
-		OLED_goto_pos(i,0);
-		//fprintf(oled_output,"QUI");
+void display_menu(menu_ptr m, uint8_t arrow_pos){
+	OLED_clear();
+	
+	OLED_goto_pos(arrow_pos, 0);
+	fprintf(oled_output,"> ");
+	printf("%u\n\r", arrow_pos);
+	
+	for(uint8_t i = 0; i < m->subM_n; i++){
+		OLED_goto_pos(i,16);
 		fprintf(oled_output,"%s",m->subMenu[i]->text);
-		i++;
 	}
-	OLED_goto_pos(arrow_pos, 128-16);
-	printf("%u\n\r", (unsigned)arrow_pos);
-	fprintf(oled_output,"<-");
 }
 
 menu_ptr menu_add(menu_ptr parent, char * text, void (*function)()) {
-	menu_ptr subMenu = (menu_ptr)malloc(sizeof(menu_t)); 
+	menu_ptr subMenu = (menu_ptr)malloc(sizeof(menu_t));
 	subMenu->text = text;
-	subMenu->function = function; 
+	subMenu->function = function;
 	subMenu->parent = parent;
 	subMenu->subM_n = 0;
+	
 	if (parent != NULL){
-		int i = 0;
-		while (parent->subMenu[i] != NULL) {
-			i++;
-		}
-		// Add subMenu
-		parent->subMenu[i] = subMenu;
-		parent->subM_n++;
+		parent->subMenu[parent->subM_n++] = subMenu;
 	}
 	return subMenu;
 }

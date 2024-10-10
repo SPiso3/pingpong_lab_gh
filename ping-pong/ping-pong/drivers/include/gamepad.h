@@ -26,11 +26,13 @@ typedef enum {
 	RIGHT,
 	IDLE
 	} dir;
+	
+pos_t gamepad_center;
 
 void JOY_init();
-pos_t JOY_calibrate();
-pos_t JOY_get_rel_pos(pos_t center);
-dir JOY_get_dir(pos_t rel_pos);
+void JOY_calibrate();
+pos_t JOY_get_rel_pos();
+dir JOY_get_dir();
 sliders_t JOY_get_sliders();
 
 #endif /* GAMEPAD_H_ */

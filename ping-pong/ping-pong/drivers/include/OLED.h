@@ -26,6 +26,9 @@ void OLED_clear_row(uint8_t row);
 void OLED_clear();
 
 void OLED_reset();
+void OLED_invert();
+void OLED_restrict_cols(uint8_t init_col, uint8_t end_col);
+void OLED_restrict_pages(uint8_t init_page, uint8_t end_page);
 void OLED_print_8char(char c);
 int OLED_putchar8(char c, FILE *stream);
 

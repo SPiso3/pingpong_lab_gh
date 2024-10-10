@@ -100,14 +100,14 @@ void test_JOYSTICK(){
 	UART_init(MYUBRR);
 	XMEM_init();
 	ADC_init();
-	JOY_init();
 	
-	pos_t center = JOY_calibrate();
+	_delay_ms(1000);
+	JOY_init();
 	_delay_ms(1000);
 	
 	while(1){
-		pos_t pos = JOY_get_rel_pos(center);
-		dir direction = JOY_get_dir(pos);
+		pos_t pos = JOY_get_rel_pos();
+		dir direction = JOY_get_dir();
 		sliders_t sliders = JOY_get_sliders();
 		
 		printf("\033[2J\033[H");
@@ -131,7 +131,6 @@ void test_OLED(){
 	OLED_init();
 	OLED_reset();
 	
-	/*
 	for(int p=0; p<8; p++){
 		OLED_goto_pos(p,p*8);
 		for(int c=0; c<8; c++){
@@ -150,42 +149,32 @@ void test_OLED(){
 	OLED_write_data(0xFF);
 	_delay_ms(100);
 	
-	_delay_ms(200);
-	OLED_write_cmd(0xA7);
+	for(uint8_t i=0; i<4; i++){
+		_delay_ms(200);
+		OLED_invert();
+	}
 	
-	_delay_ms(200);
-	OLED_write_cmd(0xA6);
-	
-	_delay_ms(200);
-	OLED_write_cmd(0xA7);
-	
-	_delay_ms(200);
-	OLED_write_cmd(0xA6);
-	
-	_delay_ms(1000);
 	OLED_reset();
-	
 	fprintf(oled_output, "prova ...");
 	_delay_ms(1000);
 	OLED_reset();
-	*/
 	
-	OLED_print_figure(0,0,64,8);
-	_delay_ms(2000);
-	
-	/*
+	OLED_reset();
 	char value = ' ';
 	while(value < ' ' + 95){
 		fprintf(oled_output, "%c",value++);
 		_delay_ms(50);
 	}
-	*/
 }
 
 void test_MENU(){
 	UART_init(MYUBRR);
 	XMEM_init();
-	OLED_init();
+	ADC_init();
 	JOY_init();
+	
+	OLED_init();
+	OLED_reset();
+	
 	menu_init();
 }

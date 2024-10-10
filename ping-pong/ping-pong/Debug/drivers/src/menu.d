@@ -33,7 +33,8 @@ drivers/src/menu.d drivers/src/menu.o: ../drivers/src/menu.c \
  ../drivers/src/../include/../../misc/../drivers/include/ADC.h \
  ../drivers/src/../include/../../misc/../drivers/include/gamepad.h \
  ../drivers/src/../include/../../misc/../drivers/include/OLED.h \
- ../drivers/src/../include/../../misc/../drivers/include/menu.h
+ ../drivers/src/../include/../../misc/../drivers/include/menu.h \
+ ../drivers/src/../include/../../misc/../drivers/include/SPI.h
 
 ../drivers/src/../include/menu.h:
 
@@ -104,3 +105,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../drivers/src/../include/../../misc/../drivers/include/OLED.h:
 
 ../drivers/src/../include/../../misc/../drivers/include/menu.h:
+
+../drivers/src/../include/../../misc/../drivers/include/SPI.h:

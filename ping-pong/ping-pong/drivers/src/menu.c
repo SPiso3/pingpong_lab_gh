@@ -59,7 +59,7 @@ void menu_loop(menu_ptr current){
 	uint8_t selected_subM = 0;
 	while(1){
 		_delay_ms(100);
-		
+		printf("%s\n\r",current->text);
 		dir direction = JOY_get_dir();
 		switch(direction){
 			case UP:

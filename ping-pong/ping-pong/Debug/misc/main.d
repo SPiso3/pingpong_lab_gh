@@ -30,7 +30,8 @@ misc/main.d misc/main.o: ../misc/main.c ../misc/utils.h \
  ../misc/../drivers/include/menu.h \
  ../misc/../drivers/include/../include/gamepad.h \
  ../misc/../drivers/include/../include/UART.h \
- ../misc/../drivers/include/../../misc/utils.h
+ ../misc/../drivers/include/../../misc/utils.h \
+ ../misc/../drivers/include/SPI.h
 
 ../misc/utils.h:
 
@@ -99,3 +100,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../misc/../drivers/include/../include/UART.h:
 
 ../misc/../drivers/include/../../misc/utils.h:
+
+../misc/../drivers/include/SPI.h:

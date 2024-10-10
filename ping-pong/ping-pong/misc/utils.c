@@ -178,3 +178,11 @@ void test_MENU(){
 	
 	menu_init();
 }
+
+void test_MCP_lb(){
+	SPI_master_init();
+	uint8_t c = 0b10101010;
+	while(1){
+		SPI_send(c);
+	}
+}

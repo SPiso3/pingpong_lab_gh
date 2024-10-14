@@ -1,17 +1,31 @@
 #include "../include/MCP.h"
 
 void MCP_init(){
+	uint8_t val;
 	SPI_master_init();
 	MCP_reset();
+	//MCP_bit_modify(MCP_CANCTRL, MODE_MASK, MODE_CONFIG);
 	
+	_delay_ms(200);
 	
+	// Self-test
+	val = MCP_read(MCP_CANSTAT);
+	if((val & MODE_MASK) != MODE_CONFIG) {
+		printf("\nMCP2515 IS NOT in configuration mode after reset!\n\r");
+		printf("read value: %x should be: %x\n\r", val, MODE_CONFIG);
+	}else {
+		printf("\nMCP2515 IS in configuration mode after reset\n\r");
+		printf("read value: %x\n\r", val);
+	}
 }
 
 uint8_t MCP_read(uint8_t address) { //read from MCP buffer
 	SPI_SS_low();
+	
 	SPI_send(MCP_READ);
 	SPI_send(address);
 	uint8_t data = SPI_receive();
+	
 	SPI_SS_high();
 	
 	return data;
@@ -19,9 +33,11 @@ uint8_t MCP_read(uint8_t address) { //read from MCP buffer
 
 void MCP_write(uint8_t address, uint8_t data) { // write to a MCP buffer
 	SPI_SS_low();
+	
 	SPI_send(MCP_WRITE);
 	SPI_send(address);
 	SPI_send(data);
+	
 	SPI_SS_high();
 }
 
@@ -42,8 +58,10 @@ void MCP_request_to_send(int buffer_number) { // send function called by CAN dri
 
 char MCP_read_status() {
 	SPI_SS_low();
+	
 	SPI_send(MCP_READ_STATUS);
 	char data = SPI_receive();
+	
 	SPI_SS_high();
 
 	return data;
@@ -51,15 +69,19 @@ char MCP_read_status() {
 
 void MCP_bit_modify(uint8_t address, uint8_t mask, uint8_t data) {
 	SPI_SS_low();
+	
 	SPI_send(MCP_BITMOD);
 	SPI_send(address);
 	SPI_send(mask);
 	SPI_send(data);
+	
 	SPI_SS_high();
 }
 
 void MCP_reset(){
 	SPI_SS_low();
+	
 	SPI_send(MCP_RESET);
+	
 	SPI_SS_high();
 }

@@ -13,6 +13,9 @@
 #include "../drivers/include/OLED.h"
 #include "../drivers/include/menu.h"
 #include "../drivers/include/SPI.h"
+#include "../drivers/include/MCP.h"
+#include "../drivers/include/CAN.h"
+
 #include <util/delay.h>
 
 #define MAX(a,b) ((a >= b) ? a : b)
@@ -25,7 +28,8 @@ void test_ADC();
 void test_JOYSTICK();
 void test_OLED();
 void test_MENU();
-void test_MCP_lb();
+void test_MCP();
+
 
 
 #endif /* UTILS_H_ */

@@ -4,6 +4,9 @@
 #include "../include/SPI.h"
 #include "../include/MCP2515.h"
 
+#define F_CPU 4915200UL //4.9152 MHz
+#include <util/delay.h>
+
 
 void MCP_init();
 uint8_t MCP_read(uint8_t address);

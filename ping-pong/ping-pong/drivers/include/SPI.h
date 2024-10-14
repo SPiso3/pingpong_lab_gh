@@ -2,6 +2,7 @@
 #define SPI_H_
 
 #include <avr/io.h>
+#include <stdio.h>
 
 void SPI_master_init();
 void SPI_send(uint8_t cData);

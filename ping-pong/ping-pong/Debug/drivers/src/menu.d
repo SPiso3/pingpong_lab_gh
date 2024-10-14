@@ -34,7 +34,12 @@ drivers/src/menu.d drivers/src/menu.o: ../drivers/src/menu.c \
  ../drivers/src/../include/../../misc/../drivers/include/gamepad.h \
  ../drivers/src/../include/../../misc/../drivers/include/OLED.h \
  ../drivers/src/../include/../../misc/../drivers/include/menu.h \
- ../drivers/src/../include/../../misc/../drivers/include/SPI.h
+ ../drivers/src/../include/../../misc/../drivers/include/SPI.h \
+ ../drivers/src/../include/../../misc/../drivers/include/MCP.h \
+ ../drivers/src/../include/../../misc/../drivers/include/../include/SPI.h \
+ ../drivers/src/../include/../../misc/../drivers/include/../include/MCP2515.h \
+ ../drivers/src/../include/../../misc/../drivers/include/CAN.h \
+ ../drivers/src/../include/../../misc/../drivers/include/../include/MCP.h
 
 ../drivers/src/../include/menu.h:
 
@@ -107,3 +112,13 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../drivers/src/../include/../../misc/../drivers/include/menu.h:
 
 ../drivers/src/../include/../../misc/../drivers/include/SPI.h:
+
+../drivers/src/../include/../../misc/../drivers/include/MCP.h:
+
+../drivers/src/../include/../../misc/../drivers/include/../include/SPI.h:
+
+../drivers/src/../include/../../misc/../drivers/include/../include/MCP2515.h:
+
+../drivers/src/../include/../../misc/../drivers/include/CAN.h:
+
+../drivers/src/../include/../../misc/../drivers/include/../include/MCP.h:

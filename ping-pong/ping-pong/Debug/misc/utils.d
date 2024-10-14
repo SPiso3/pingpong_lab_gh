@@ -31,7 +31,11 @@ misc/utils.d misc/utils.o: ../misc/utils.c ../misc/utils.h \
  ../misc/../drivers/include/../include/gamepad.h \
  ../misc/../drivers/include/../include/UART.h \
  ../misc/../drivers/include/../../misc/utils.h \
- ../misc/../drivers/include/SPI.h
+ ../misc/../drivers/include/SPI.h ../misc/../drivers/include/MCP.h \
+ ../misc/../drivers/include/../include/SPI.h \
+ ../misc/../drivers/include/../include/MCP2515.h \
+ ../misc/../drivers/include/CAN.h \
+ ../misc/../drivers/include/../include/MCP.h
 
 ../misc/utils.h:
 
@@ -102,3 +106,13 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../misc/../drivers/include/../../misc/utils.h:
 
 ../misc/../drivers/include/SPI.h:
+
+../misc/../drivers/include/MCP.h:
+
+../misc/../drivers/include/../include/SPI.h:
+
+../misc/../drivers/include/../include/MCP2515.h:
+
+../misc/../drivers/include/CAN.h:
+
+../misc/../drivers/include/../include/MCP.h:

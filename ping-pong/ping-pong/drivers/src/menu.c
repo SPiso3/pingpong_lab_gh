@@ -26,7 +26,7 @@ void multiplayer(){
 void menu_init(){
 	menu_t menu_null = {"root",NULL,NULL,{NULL},0};
 	
-	menu_add(&menu_null, "HIGH SCORE", NULL);
+	menu_ptr menu_high = menu_add(&menu_null, "HIGH SCORE", NULL);
 	menu_ptr menu_play = menu_add(&menu_null, "PLAY", NULL);
 	menu_ptr menu_test = menu_add(&menu_null, "TEST", NULL);
 	
@@ -34,13 +34,8 @@ void menu_init(){
 	menu_add(menu_play, "2v2", &image_2v2);
 	menu_add(menu_play, "multiplayer", &multiplayer);
 	
-	menu_add(menu_test, "UART", &test_UART);
-	menu_add(menu_test, "SRAM",NULL );
-	menu_add(menu_test, "XMEM",NULL );
-	menu_add(menu_test, "ADC", NULL);
-	menu_add(menu_test, "JOYSTICK", NULL);
-	menu_add(menu_test, "OLED",NULL );
-	menu_add(menu_test, "MCP",NULL );
+	menu_add(menu_test, "SRAM", &test_SRAM);
+	menu_add(menu_test, "OLED", &test_OLED);
 	
 	/*
 	menu_add(menu_test, "UART", &test_UART);

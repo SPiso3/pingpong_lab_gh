@@ -3,7 +3,6 @@
 
 void CAN_init(){
 	MCP_init(MODE_LOOPBACK);
-	MCP_bit_modify(MCP_CANINTE, 0b11111111, MCP_RX0IF); // enable rx!
 	
 	//sei();
 }

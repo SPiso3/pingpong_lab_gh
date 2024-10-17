@@ -5,11 +5,12 @@
 #include <avr/interrupt.h>
 
 typedef struct Message {
-	unsigned int id; 
+	uint16_t id; 
 	uint8_t length;  //of data
-	char data[8];    
+	uint8_t data[8];    
 } message_t, *message_ptr;
 
 void CAN_init();
+void CAN_send(message_ptr msg);
 
 #endif /* CAN_H_ */

@@ -1,15 +1,7 @@
 #ifndef MENU_H_
 #define MENU_H_
 
-#include "../include/gamepad.h"
-#include "../include/OLED.h"
-#include "../include/UART.h"
 #include "../../misc/utils.h"
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <util/delay.h>
-
 
 #define MAX_SUBMENUS 8
 

@@ -31,8 +31,6 @@ drivers/src/gamepad.d drivers/src/gamepad.o: ../drivers/src/gamepad.c \
  ../drivers/src/../../misc/../drivers/include/../include/XMEM.h \
  ../drivers/src/../../misc/../drivers/include/../include/OLED.h \
  ../drivers/src/../../misc/../drivers/include/menu.h \
- ../drivers/src/../../misc/../drivers/include/../include/gamepad.h \
- ../drivers/src/../../misc/../drivers/include/../include/UART.h \
  ../drivers/src/../../misc/../drivers/include/../../misc/utils.h \
  ../drivers/src/../../misc/../drivers/include/SPI.h \
  ../drivers/src/../../misc/../drivers/include/MCP.h \
@@ -104,10 +102,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../drivers/src/../../misc/../drivers/include/../include/OLED.h:
 
 ../drivers/src/../../misc/../drivers/include/menu.h:
-
-../drivers/src/../../misc/../drivers/include/../include/gamepad.h:
-
-../drivers/src/../../misc/../drivers/include/../include/UART.h:
 
 ../drivers/src/../../misc/../drivers/include/../../misc/utils.h:
 

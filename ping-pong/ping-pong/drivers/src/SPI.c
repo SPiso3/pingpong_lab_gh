@@ -1,42 +1,30 @@
 #include "../include/SPI.h"
 
-#define DDR_SPI DDRB
-#define SS PB4
-#define DD_MOSI PB5
-#define DD_MISO PB6
-#define DD_SCK PB7
-
 void SPI_master_init(){
-	// Set MOSI, SCK and !SS output, all others input 
+	// Set MOSI, SCK and !SS output
 	DDR_SPI |= (1<<DD_MOSI)|(1<<DD_SCK)|(1<<SS);
-	// Enable SPI, Master, set clock rate fck/16, TODO enable interrupts
-	SPCR |= (1<<SPE)|(1<<MSTR)|(1<<SPR0);
-	// explicitly setting mode 00
-	SPCR &= ~((1 << CPOL) | (1 << CPHA));
-	// !SS to 1 
-	SPI_SS_high(); 
+	
+	// Enable SPI, Master, set clock rate fck/16, TODO? enable interrupts
+	SPCR |= (1<<SPE)|(1<<MSTR)|(1<<SPR0); //|(1<<SPIE);
+	SPCR &= ~((1 << CPOL) | (1 << CPHA)); // explicitly setting mode 00
+	SPI_SS_high(); // !SS to 1 
 }
 
-void SPI_send(uint8_t cData){  //remember to set SS low before calling
-	/* Start transmission */
-	SPDR = cData;
-	/* Wait for transmission complete */
-	while(!(SPSR & (1<<SPIF))){}
+void SPI_send(uint8_t data){ 
+	//remember to set SS low before calling
+	SPDR = data;
+	while(!(SPSR & (1<<SPIF))){} //Wait for transmission complete
 }
 
 uint8_t SPI_receive() {
-	//send dummy
-	SPDR = 0xAA;
-	while(!(SPSR & (1<<SPIF))){}
-	
-	// Return data register
-	return SPDR;
+	SPI_send(0xAA);		//send dummy
+	return SPDR;		// Return data register
 }
 
 void SPI_SS_high(){
-	PORTB |= (1 << SS);
+	PORT_SPI |= (1 << SS);
 }
 
 void SPI_SS_low(){
-	PORTB &= ~(1 << SS);
+	PORT_SPI &= ~(1 << SS);
 }

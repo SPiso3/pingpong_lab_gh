@@ -108,6 +108,7 @@ const unsigned char PROGMEM font8[95][8] = {
 	{0b00000010,0b00000011,0b00000001,0b00000011,0b00000010,0b00000011,0b00000001,0b00000000}, // ~
 };
 
+/*
 // Font 5x7 - normal
 const unsigned char PROGMEM font5[95][5] = {
 	{0b00000000,0b00000000,0b00000000,0b00000000,0b00000000}, //
@@ -305,6 +306,8 @@ const unsigned char PROGMEM font4[95][4] = {
 		{0b10000100,0b01111000,0b00010000,0b00000000}, // }
 		{0b00001000,0b00000100,0b00001000,0b00000100}, // ~
 		};
+
+*/
 
 const unsigned char PROGMEM joystick_img[] = {
 	//64x64px

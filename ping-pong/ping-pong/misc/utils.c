@@ -179,4 +179,43 @@ void test_MENU(){
 	menu_init();
 }
 
+void test_MCP_loopback(){
+	UART_init(MYUBRR);
+	MCP_init(MODE_LOOPBACK); // set loopback mode
+	
+	//send
+	MCP_write(MCP_TXB0SIDH, 0xab);
+	MCP_request_to_send(0);
+	//interrupt has raised!
+	
+	//check flag
+	uint8_t flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
+	printf("interrupt flag: %x\r\n", flag);
+	
+	//read data
+	uint8_t byte = MCP_read(MCP_RXB0SIDH);
+	printf("received: %x\r\n", byte);
+	
+	//clear flag
+	MCP_bit_modify(MCP_CANINTF, MCP_RX0IF, 0);
+	flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
+	printf("is it CLEARED?: int flag: %x\r\n", flag);
+}
 
+/*
+void test_CAN_lb(){
+	UART_init(MYUBRR);
+	CAN_init();
+	MCP_bit_modify(MCP_CANCTRL, MODE_MASK, MODE_LOOPBACK); // set loopback mode
+	printf("mode: %x\r\n", (MCP_read(MCP_CANSTAT) & MODE_MASK) >> 5);
+	MCP_bit_modify(MCP_CANINTE, 0b11111111, MCP_RX0IF); // enable rx!
+	uint8_t 
+	message_t msg = {1, 2, };
+	MCP_write(MCP_TXB0SIDH, 0xab);
+	MCP_request_to_send(0);
+	uint8_t byte = MCP_read(MCP_RXB0SIDH);
+	printf("received: %x\n\r", byte);
+	
+	printf("READSTAT: %x\n\r", MCP_read_status());
+}
+*/

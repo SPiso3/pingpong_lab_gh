@@ -35,20 +35,21 @@ void menu_init(){
 	menu_add(menu_play, "multiplayer", &multiplayer);
 	
 	menu_add(menu_test, "UART", &test_UART);
+	menu_add(menu_test, "SRAM",NULL );
+	menu_add(menu_test, "XMEM",NULL );
+	menu_add(menu_test, "ADC", NULL);
+	menu_add(menu_test, "JOYSTICK", NULL);
+	menu_add(menu_test, "OLED",NULL );
+	menu_add(menu_test, "MCP",NULL );
+	
+	/*
+	menu_add(menu_test, "UART", &test_UART);
 	menu_add(menu_test, "SRAM", &test_SRAM);
 	menu_add(menu_test, "XMEM", &test_XMEM);
 	menu_add(menu_test, "ADC", &test_ADC);
 	menu_add(menu_test, "JOYSTICK", &test_JOYSTICK);
 	menu_add(menu_test, "OLED", &test_OLED);
-	
-	/*
-	void test_UART();
-	void test_SRAM();
-	void test_XMEM();
-	void test_ADC();
-	void test_JOYSTICK();
-	void test_OLED();
-	void test_MENU();
+	menu_add(menu_test, "MCP", &test_MCP_loopback);
 	*/
 	
 	menu_ptr current = &menu_null;
@@ -116,6 +117,7 @@ void display_menu(menu_ptr m, uint8_t arrow_pos){
 }
 
 menu_ptr menu_add(menu_ptr parent, char * text, void (*function)()) {
+	printf("size:%d",sizeof(menu_t));
 	menu_ptr subMenu = (menu_ptr)malloc(sizeof(menu_t));
 	subMenu->text = text;
 	subMenu->function = function;

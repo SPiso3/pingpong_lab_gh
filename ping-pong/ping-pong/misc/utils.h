@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+
 #include "../drivers/include/UART.h"
 #include "../drivers/include/XMEM.h"
 #include "../drivers/include/ADC.h"
@@ -28,8 +29,6 @@ void test_ADC();
 void test_JOYSTICK();
 void test_OLED();
 void test_MENU();
-void test_MCP();
-
-
+void test_MCP_loopback();
 
 #endif /* UTILS_H_ */

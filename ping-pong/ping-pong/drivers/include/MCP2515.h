@@ -13,6 +13,48 @@ v1.00       2003/12/11  Initial release
 Copyright 2003 Kimberly Otten Software Consulting
 */
 
+//--MANUALLY ADDED BY US----------------
+// Send buffer 0
+#define MCP_TXB0SIDH 0x31
+#define MCP_TXB0SIDL 0x32
+#define MCP_TXB0EID8 0x33
+#define MCP_TXB0EID0 0x34
+#define MCP_TXB0DLC 0x35
+#define MCP_TXB0D0 0x36
+
+// Send buffer 1
+#define MCP_TXB1SIDH 0x41
+#define MCP_TXB1SIDL 0x42
+#define MCP_TXB1EID8 0x43
+#define MCP_TXB1EID0 0x44
+#define MCP_TXB1DLC 0x45
+#define MCP_TXB1D0 0x46
+
+// Send buffer 2
+#define MCP_TXB2SIDH 0x51
+#define MCP_TXB2SIDL 0x52
+#define MCP_TXB2EID8 0x53
+#define MCP_TXB2EID0 0x54
+#define MCP_TXB2DLC 0x55
+#define MCP_TXB2D0 0x56
+
+// Receive buffer 0
+#define MCP_RXB0SIDH 0x61
+#define MCP_RXB0SIDL 0x62
+#define MCP_RXB0EID8 0x63
+#define MCP_RXB0EID0 0x64
+#define MCP_RXB0DLC 0x65
+#define MCP_RXB0D0 0x66
+
+// Receive buffer 1
+#define MCP_RXB1SIDH 0x71
+#define MCP_RXB1SIDL 0x72
+#define MCP_RXB1EID8 0x73
+#define MCP_RXB1EID0 0x74
+#define MCP_RXB1DLC 0x75
+#define MCP_RXB1D0 0x76
+//-------------------------------
+
 // Define MCP2515 register addresses
 
 #define MCP_RXF0SIDH	0x00

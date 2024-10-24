@@ -127,6 +127,7 @@
         <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
         <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
         <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.compiler.warnings.ExtraWarnings>True</avrgcc.compiler.warnings.ExtraWarnings>
         <avrgcc.assembler.general.IncludePaths>
           <ListValues>
             <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.7.374\include\</Value>
@@ -173,13 +174,13 @@
     <Compile Include="drivers\src\CAN.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="drivers\src\gamepad.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="drivers\src\MCP.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="drivers\src\menu.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="drivers\src\gamepad.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="drivers\src\OLED.c">
@@ -194,10 +195,10 @@
     <Compile Include="drivers\src\XMEM.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\fonts.h">
+    <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\main.c">
+    <Compile Include="misc\fonts.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="misc\utils.c">
@@ -208,10 +209,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="drivers" />
-    <Folder Include="drivers\include" />
-    <Folder Include="drivers\src" />
-    <Folder Include="misc" />
+    <Folder Include="drivers\" />
+    <Folder Include="drivers\include\" />
+    <Folder Include="drivers\src\" />
+    <Folder Include="misc\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

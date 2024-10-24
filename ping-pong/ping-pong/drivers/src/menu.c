@@ -26,7 +26,7 @@ void multiplayer(){
 void menu_init(){
 	menu_t menu_null = {"root",NULL,NULL,{NULL},0};
 	
-	menu_ptr menu_high = menu_add(&menu_null, "HIGH SCORE", NULL);
+	menu_add(&menu_null, "HIGH SCORE", NULL);
 	menu_ptr menu_play = menu_add(&menu_null, "PLAY", NULL);
 	menu_ptr menu_test = menu_add(&menu_null, "TEST", NULL);
 	

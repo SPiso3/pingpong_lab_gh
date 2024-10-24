@@ -7,7 +7,12 @@
 typedef struct Message {
 	uint16_t id; 
 	uint8_t length;  //of data
-	uint8_t data[8];    
+	union{	
+		uint8_t unsigned_data[8];
+		int8_t signed_data[8];
+		char text[8];
+	};
+	
 } message_t, *message_ptr;
 
 void CAN_init();

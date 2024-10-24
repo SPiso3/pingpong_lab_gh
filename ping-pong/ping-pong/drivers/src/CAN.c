@@ -17,7 +17,7 @@ void CAN_send(message_ptr msg){
 	
 	//store data
 	for(uint8_t i = 0; i < msg->length; i++){
-		MCP_write(MCP_TXB0D0 + i,msg->data[i]);
+		MCP_write(MCP_TXB0D0 + i,msg->unsigned_data[i]);
 	}
 	
 	//request to send
@@ -37,7 +37,7 @@ message_t CAN_receive(){
 	
 	//get data
 	for (int i = 0; i < msg.length; i++) {
-		msg.data[i] = MCP_read(MCP_RXB0D0 + i);
+		msg.unsigned_data[i] = MCP_read(MCP_RXB0D0 + i);
 	}
 	
 	return msg;

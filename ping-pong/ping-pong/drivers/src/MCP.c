@@ -13,11 +13,11 @@ void MCP_init(uint8_t mode){
 	}
 	
 	printf("\nMCP2515 is in configuration mode...\n\r");
+	MCP_write(MCP_CNF1, 63); //125kbps
+	MCP_bit_modify(MCP_CANINTE, 0xFF, MCP_RX0IF); //enable ONLY rx interrupt on buffer 0
+	
 	MCP_bit_modify(MCP_CANCTRL, MODE_MASK, mode);
 	printf("set to MODE: %x\n\r",mode);
-	
-	//enable ONLY rx interrupt on buffer 0
-	MCP_bit_modify(MCP_CANINTE, 0xFF, MCP_RX0IF);
 }
 
 void MCP_reset(){

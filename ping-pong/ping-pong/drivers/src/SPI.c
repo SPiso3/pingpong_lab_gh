@@ -5,7 +5,7 @@ void SPI_master_init(){
 	DDR_SPI |= (1<<DD_MOSI)|(1<<DD_SCK)|(1<<SS);
 	
 	// Enable SPI, Master, set clock rate fck/16, TODO? enable interrupts
-	SPCR |= (1<<SPE)|(1<<MSTR)|(1<<SPR0); //|(1<<SPIE);
+	SPCR |= (1<<SPE)|(1<<MSTR)|(1<<SPR0);//|(1<<SPIE);
 	SPCR &= ~((1 << CPOL) | (1 << CPHA)); // explicitly setting mode 00
 	SPI_SS_high(); // !SS to 1 
 }

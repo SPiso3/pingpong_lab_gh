@@ -30,5 +30,7 @@ void test_JOYSTICK();
 void test_OLED();
 void test_MENU();
 void test_MCP_loopback();
+void test_LB_CAN_main();
+void test_LB_CAN_isr();
 
 #endif /* UTILS_H_ */

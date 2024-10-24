@@ -202,20 +202,62 @@ void test_MCP_loopback(){
 	printf("is it CLEARED?: int flag: %x\r\n", flag);
 }
 
-/*
-void test_CAN_lb(){
+void test_LB_CAN_main(){
 	UART_init(MYUBRR);
-	CAN_init();
-	MCP_bit_modify(MCP_CANCTRL, MODE_MASK, MODE_LOOPBACK); // set loopback mode
-	printf("mode: %x\r\n", (MCP_read(MCP_CANSTAT) & MODE_MASK) >> 5);
-	MCP_bit_modify(MCP_CANINTE, 0b11111111, MCP_RX0IF); // enable rx!
-	uint8_t 
-	message_t msg = {1, 2, };
-	MCP_write(MCP_TXB0SIDH, 0xab);
-	MCP_request_to_send(0);
-	uint8_t byte = MCP_read(MCP_RXB0SIDH);
-	printf("received: %x\n\r", byte);
+	MCP_init(MODE_NORMAL); // set loopback mode
+	XMEM_init();
+	ADC_init();
+	JOY_init();
 	
-	printf("READSTAT: %x\n\r", MCP_read_status());
+	cli();
+	GICR |= (1 << INT0);					// Enable INT0
+	MCUCR &= ~((1 << ISC01)|(0 << ISC00));	// mode:00 = trigger when LOW
+	DDRD &= ~(1 << PD2);
+	PORTD |= (1 << PD2);
+	sei();
+	
+	while(1){
+		_delay_ms(100);
+		printf("\033[2J\033[H");
+		//create data
+		pos_t pos = JOY_get_rel_pos();
+		printf("JOY_16t: %x %x\r\n",sizeof(pos.x), pos.y);
+		int8_t xl = (int8_t)pos.x;
+		int8_t yl  = (int8_t)pos.y;
+		printf("JOY_8t: %d %d\r\n",xl, yl);
+		message_t msg = {0xAB, 2, .signed_data={xl,yl}};
+	
+		//check CAN RX flag before sending (should be 0)
+		uint8_t flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
+		printf("interrupt flag: %x\r\n", flag);
+	
+		//send
+	    printf("sending message...\r\n");
+		CAN_send(&msg); //this will trigger the interrupt... (because of LOOPBACK)
+		break;
+	}
 }
-*/
+
+void test_LB_CAN_isr(){
+	printf("INTERRUPT on INT0!\n\r");
+	
+	//check CAN RX flag (should be 1)
+	uint8_t flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
+	printf("interrupt flag: %x\r\n", flag);
+	
+	//read data
+	message_t rec = CAN_receive();
+	printf("received CAN MESSAGE = ID: %x LENGTH: %d DATA: ", rec.id, rec.length);
+	
+	for(int i=0; i<rec.length; i++){
+		printf("%d",rec.signed_data[i]);
+	}
+	printf("\n\r");
+	
+	//clear flag
+	MCP_bit_modify(MCP_CANINTF, MCP_RX0IF, 0);
+	
+	//check CAN RX flag (should be 0)
+	flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
+	printf("interrupt flag: %x\r\n", flag);
+}

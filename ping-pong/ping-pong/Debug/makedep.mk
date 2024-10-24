@@ -6,11 +6,11 @@ drivers\src\ADC.c
 
 drivers\src\CAN.c
 
+drivers\src\gamepad.c
+
 drivers\src\MCP.c
 
 drivers\src\menu.c
-
-drivers\src\gamepad.c
 
 drivers\src\OLED.c
 
@@ -20,7 +20,7 @@ drivers\src\UART.c
 
 drivers\src\XMEM.c
 
-misc\main.c
+main.c
 
 misc\utils.c
 

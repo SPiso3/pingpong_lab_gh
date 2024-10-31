@@ -4,16 +4,24 @@
 #include <stdio.h>
 
 void can_printmsg(CanMsg m){
-    printf("CanMsg(id:%d, length:%d, data:{", m.id, m.length);
+    printf("\n\rCanMsg(id:%d, length:%d, data:{", m.id, m.length);
     if(m.length){
         printf("%d", m.byte[0]);
     }
     for(uint8_t i = 1; i < m.length; i++){
         printf(", %d", m.byte[i]);
     }
-    printf("})\n");
+    printf("})");
 }
 
+void can_print_JOY(CanMsg m){
+	printf("\n\rCanMsg(id:%d, length:%d, data:{", m.id, m.length);
+		if(m.length){
+			for(uint8_t i = 0; i < m.length; i++)
+				printf(", %d", m.signed_data[i]);
+		}
+	printf("})");
+}
 
 #define txMailbox 0
 #define rxMailbox 1
@@ -73,8 +81,8 @@ void can_init(CanInit init, uint8_t rxInterrupt){
 void can_tx(CanMsg m){
     while(!(CAN0->CAN_MB[txMailbox].CAN_MSR & CAN_MSR_MRDY)){}
     
-    // Set message ID and use CAN 2.0B protocol
-    CAN0->CAN_MB[txMailbox].CAN_MID = CAN_MID_MIDvA(m.id) | CAN_MID_MIDE ;
+    // Set message ID and use CAN 2.0A protocol
+    CAN0->CAN_MB[txMailbox].CAN_MID = CAN_MID_MIDvA(m.id) & ~CAN_MID_MIDE ;
         
     // Coerce maximum 8 byte length
     m.length = m.length > 8 ? 8 : m.length;
@@ -107,11 +115,8 @@ uint8_t can_rx(CanMsg* m){
     CAN0->CAN_MB[rxMailbox].CAN_MCR |= CAN_MCR_MTCR;
     return 1;
 }
-    
-    
+   
 
-    
-/*
 // Example CAN interrupt handler
 void CAN0_Handler(void){
     char can_sr = CAN0->CAN_SR; 
@@ -119,7 +124,9 @@ void CAN0_Handler(void){
     // RX interrupt
     if(can_sr & (1 << rxMailbox)){
         // Add your message-handling code here
-        can_printmsg(can_rx());
+		CanMsg can_msg;
+		can_rx(&can_msg);
+		can_print_JOY(can_msg);
     } else {
         printf("CAN0 message arrived in non-used mailbox\n\r");
     }
@@ -131,5 +138,3 @@ void CAN0_Handler(void){
     
     NVIC_ClearPendingIRQ(ID_CAN0);
 } 
-*/
-

@@ -168,6 +168,9 @@
     <Compile Include="drivers\include\can.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="drivers\include\pwm.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="drivers\include\time.h">
       <SubType>compile</SubType>
     </Compile>
@@ -175,6 +178,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="drivers\src\can.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\src\pwm.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="drivers\src\time.c">

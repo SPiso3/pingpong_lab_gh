@@ -3,6 +3,7 @@
 void MCP_init(uint8_t mode){
 	SPI_master_init();
 	MCP_reset();
+	_delay_ms(10);
 	
 	// Self-test
 	uint8_t val = MCP_read(MCP_CANSTAT);
@@ -13,11 +14,26 @@ void MCP_init(uint8_t mode){
 	}
 	
 	printf("\nMCP2515 is in configuration mode...\n\r");
-	MCP_write(MCP_CNF1, 63); //125kbps
-	MCP_bit_modify(MCP_CANINTE, 0xFF, MCP_RX0IF); //enable ONLY rx interrupt on buffer 0
+	//@125kbps - 16TQ = tbit
+	MCP_write(MCP_CNF1, 0b11000011); //SJW = 3 | BRP = 3MCP_write(MCP_CNF1, 0b11000011); //SJW = 3 | BRP = 3
+	MCP_write(MCP_CNF2, 0b10110001); //10 | PH1 = 7(-1) | PROP = 2(-1)
+	MCP_write(MCP_CNF3, 0b00000101); //00 | XXX | PH2 = 6(-1)
 	
-	MCP_bit_modify(MCP_CANCTRL, MODE_MASK, mode);
-	printf("set to MODE: %x\n\r",mode);
+	printf("CNF1: %x\n\r", MCP_read(MCP_CNF1));
+	printf("CNF2: %x\n\r", MCP_read(MCP_CNF2));
+	printf("CNF3: %x\n\r", MCP_read(MCP_CNF3));
+	
+	MCP_bit_modify(MCP_CANINTE, 0xFF, MCP_RX0IF); //enable ONLY rx interrupt on buffer 0
+	MCP_bit_modify(MCP_CANCTRL, MODE_MASK, mode); //set mode
+	
+	val = MCP_read(MCP_CANSTAT);
+	if((val & MODE_MASK) != mode) {
+		printf("\nMCP2515 is NOT in DESIRED (loopback or normal)\n\r");
+		printf("read value: %x should be: %x\n\r", val, mode);
+		return;
+	}
+	
+	_delay_ms(10);
 }
 
 void MCP_reset(){

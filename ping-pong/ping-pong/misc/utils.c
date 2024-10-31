@@ -204,10 +204,10 @@ void test_MCP_loopback(){
 
 void test_LB_CAN_main(){
 	UART_init(MYUBRR);
-	MCP_init(MODE_NORMAL); // set loopback mode
 	XMEM_init();
 	ADC_init();
 	JOY_init();
+	MCP_init(MODE_NORMAL); // set loopback mode
 	
 	cli();
 	GICR |= (1 << INT0);					// Enable INT0
@@ -217,40 +217,39 @@ void test_LB_CAN_main(){
 	sei();
 	
 	while(1){
-		_delay_ms(100);
-		printf("\033[2J\033[H");
+		_delay_ms(10);
+		//printf("\033[2J\033[H");
 		//create data
 		pos_t pos = JOY_get_rel_pos();
-		printf("JOY_16t: %x %x\r\n",sizeof(pos.x), pos.y);
+		//printf("JOY_16t: %x %x\r\n",sizeof(pos.x), pos.y);
 		int8_t xl = (int8_t)pos.x;
 		int8_t yl  = (int8_t)pos.y;
-		printf("JOY_8t: %d %d\r\n",xl, yl);
-		message_t msg = {0xAB, 2, .signed_data={xl,yl}};
+		//printf("JOY_8t: %d %d\r\n",xl, yl);
+		message_t msg = {0xAA, 2, .signed_data={xl,yl}};
 	
 		//check CAN RX flag before sending (should be 0)
 		uint8_t flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
-		printf("interrupt flag: %x\r\n", flag);
+		//printf("interrupt flag: %x\r\n", flag);
 	
 		//send
-	    printf("sending message...\r\n");
+	    //printf("sending message...\r\n");
 		CAN_send(&msg); //this will trigger the interrupt... (because of LOOPBACK)
-		break;
 	}
 }
 
 void test_LB_CAN_isr(){
-	printf("INTERRUPT on INT0!\n\r");
+	//printf("INTERRUPT on INT0!\n\r");
 	
 	//check CAN RX flag (should be 1)
 	uint8_t flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
-	printf("interrupt flag: %x\r\n", flag);
+	//printf("interrupt flag: %x\r\n", flag);
 	
 	//read data
 	message_t rec = CAN_receive();
 	printf("received CAN MESSAGE = ID: %x LENGTH: %d DATA: ", rec.id, rec.length);
 	
 	for(int i=0; i<rec.length; i++){
-		printf("%d",rec.signed_data[i]);
+		printf("%d",rec.unsigned_data[i]);
 	}
 	printf("\n\r");
 	
@@ -259,5 +258,5 @@ void test_LB_CAN_isr(){
 	
 	//check CAN RX flag (should be 0)
 	flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
-	printf("interrupt flag: %x\r\n", flag);
+	//printf("interrupt flag: %x\r\n", flag);
 }

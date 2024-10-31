@@ -61,5 +61,5 @@ uint64_t time_combine(Time t);
 //      Time t = (Time){.hours = 1, .minutes = 5, .seconds = 48, .msecs = 2};
 //      printf("t: " time_fmtStr "\n", time_fmtParam(t));
 //      // prints "t: Time(1h, 5m, 48s, 2ms, 0t)"
-#define time_fmtStr "Time(%uh, %um, %us, %ums, %ut)"
-#define time_fmtParam(t) t.hours, t.minutes, t.seconds, t.msecs, t.ticks
+#define time_fmtStr "%u:%u:%u::%u"
+#define time_fmtParam(t) t.hours, t.minutes, t.seconds, t.msecs

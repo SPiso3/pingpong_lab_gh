@@ -44,6 +44,7 @@ C_SRCS +=  \
 ../Device_Startup/startup_sam3xa.c \
 ../Device_Startup/system_sam3xa.c \
 ../drivers/src/can.c \
+../drivers/src/pwm.c \
 ../drivers/src/time.c \
 ../drivers/src/uart.c \
 ../main.c
@@ -59,6 +60,7 @@ OBJS +=  \
 Device_Startup/startup_sam3xa.o \
 Device_Startup/system_sam3xa.o \
 drivers/src/can.o \
+drivers/src/pwm.o \
 drivers/src/time.o \
 drivers/src/uart.o \
 main.o
@@ -67,6 +69,7 @@ OBJS_AS_ARGS +=  \
 Device_Startup/startup_sam3xa.o \
 Device_Startup/system_sam3xa.o \
 drivers/src/can.o \
+drivers/src/pwm.o \
 drivers/src/time.o \
 drivers/src/uart.o \
 main.o
@@ -75,6 +78,7 @@ C_DEPS +=  \
 Device_Startup/startup_sam3xa.d \
 Device_Startup/system_sam3xa.d \
 drivers/src/can.d \
+drivers/src/pwm.d \
 drivers/src/time.d \
 drivers/src/uart.d \
 main.d
@@ -83,6 +87,7 @@ C_DEPS_AS_ARGS +=  \
 Device_Startup/startup_sam3xa.d \
 Device_Startup/system_sam3xa.d \
 drivers/src/can.d \
+drivers/src/pwm.d \
 drivers/src/time.d \
 drivers/src/uart.d \
 main.d
@@ -120,6 +125,13 @@ Device_Startup/system_sam3xa.o: ../Device_Startup/system_sam3xa.c
 	
 
 drivers/src/can.o: ../drivers/src/can.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+drivers/src/pwm.o: ../drivers/src/pwm.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

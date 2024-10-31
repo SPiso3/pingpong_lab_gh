@@ -1,6 +1,8 @@
 #include "sam3x8e.h"
 #include <stdio.h>
 
+#define F_CPU 84000000
+
 // UART is connected to the ATmega16U2 on the Arduino, which acts as a USB serial device.
 // This module hooks into the stdio functions, by spoofing several system calls
 //

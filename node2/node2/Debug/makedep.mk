@@ -8,6 +8,8 @@ Device_Startup\system_sam3xa.c
 
 drivers\src\can.c
 
+drivers\src\pwm.c
+
 drivers\src\time.c
 
 drivers\src\uart.c

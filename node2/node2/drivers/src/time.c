@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "../include/time.h"
 
-
 uint64_t calib;
 static uint64_t now = 0;
     

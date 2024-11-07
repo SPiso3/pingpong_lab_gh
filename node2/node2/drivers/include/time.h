@@ -2,8 +2,6 @@
 
 #include <stdint.h>
 
-
-
 // Time is a count of the number of ticks, and is represented as a uint64_t
 // Time is used to mean both absolute time since device start, and a duration
 

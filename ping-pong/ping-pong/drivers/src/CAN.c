@@ -2,9 +2,14 @@
 
 
 void CAN_init(){
-	MCP_init(MODE_LOOPBACK);
+	MCP_init(MODE_NORMAL);
 	
-	//sei();
+	cli();
+	GICR |= (1 << INT0);					// Enable INT0
+	MCUCR &= ~((1 << ISC01)|(0 << ISC00));	// mode:00 = trigger when LOW
+	DDRD &= ~(1 << PD2);
+	PORTD |= (1 << PD2);
+	sei();
 }
 
 void CAN_send(message_ptr msg){

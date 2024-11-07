@@ -207,28 +207,22 @@ void test_LB_CAN_main(){
 	XMEM_init();
 	ADC_init();
 	JOY_init();
-	MCP_init(MODE_NORMAL); // set loopback mode
-	
-	cli();
-	GICR |= (1 << INT0);					// Enable INT0
-	MCUCR &= ~((1 << ISC01)|(0 << ISC00));	// mode:00 = trigger when LOW
-	DDRD &= ~(1 << PD2);
-	PORTD |= (1 << PD2);
-	sei();
+	CAN_init();
 	
 	while(1){
-		_delay_ms(10);
+		_delay_ms(16);
 		//printf("\033[2J\033[H");
 		//create data
 		pos_t pos = JOY_get_rel_pos();
 		//printf("JOY_16t: %x %x\r\n",sizeof(pos.x), pos.y);
-		int8_t xl = (int8_t)pos.x;
-		int8_t yl  = (int8_t)pos.y;
-		//printf("JOY_8t: %d %d\r\n",xl, yl);
-		message_t msg = {0xAA, 2, .signed_data={xl,yl}};
+		int8_t x = (int8_t)pos.x;
+		int8_t y  = (int8_t)pos.y;
+		//printf("JOY_8t: %d %d\r\n",x, y);
+		message_t msg = {0xAA, 2, .signed_data={x,y}};
+		//printf("x: %d, y:%d\n\r", x, y);
 	
 		//check CAN RX flag before sending (should be 0)
-		uint8_t flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
+		//uint8_t flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
 		//printf("interrupt flag: %x\r\n", flag);
 	
 		//send
@@ -241,7 +235,7 @@ void test_LB_CAN_isr(){
 	//printf("INTERRUPT on INT0!\n\r");
 	
 	//check CAN RX flag (should be 1)
-	uint8_t flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
+	//uint8_t flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
 	//printf("interrupt flag: %x\r\n", flag);
 	
 	//read data
@@ -257,6 +251,6 @@ void test_LB_CAN_isr(){
 	MCP_bit_modify(MCP_CANINTF, MCP_RX0IF, 0);
 	
 	//check CAN RX flag (should be 0)
-	flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
+	//flag = (MCP_read(MCP_CANINTF) & MCP_RX0IF);
 	//printf("interrupt flag: %x\r\n", flag);
 }

@@ -4,6 +4,11 @@
 #include "../include/MCP.h"
 #include <avr/interrupt.h>
 
+typedef enum {
+	CAN_ID_GOAL = 0xEE,
+	CAN_ID_PWM = 0xDD,
+} Can_Id;
+
 typedef struct Message {
 	uint16_t id; 
 	uint8_t length;  //of data

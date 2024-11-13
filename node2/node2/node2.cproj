@@ -171,6 +171,12 @@
     <Compile Include="drivers\include\CAN.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="drivers\include\encoder.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\include\PID.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="drivers\include\PWM.h">
       <SubType>compile</SubType>
     </Compile>
@@ -184,6 +190,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="drivers\src\CAN.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\src\encoder.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\src\PID.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="drivers\src\PWM.c">

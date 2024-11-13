@@ -3,6 +3,12 @@
 
 #include <stdint.h>
 
+typedef enum {
+	CAN_ID_GOAL,
+	CAN_ID_JOYSTICK,
+	CAN_ID_PWM,
+} Can_Id;
+
 // Struct with bit timing information
 // See `can_init` for usage example
 typedef struct CanInit CanInit;

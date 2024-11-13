@@ -4,7 +4,7 @@
 #include "sam3x8e.h"
 #include "../include/CAN.h"
 
-#define ADC_THRESHOLD 200
+#define ADC_THRESHOLD 4000
 
 void adc_init();
 

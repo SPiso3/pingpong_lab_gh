@@ -5,11 +5,11 @@
 #include "UART.h"
 
 #define PWM_PERIOD 20		//ms
-#define CPRD_VALUE 1640+1		//CPRD = 20ms x 84MHz/1024
+#define CPRD_VALUE (1640+1)	//CPRD = 20ms x 84MHz/1024
 
 #define MIN_PWM 74			//0.9*X/CPRD
 #define MAX_PWM 172
-#define CENTER_PWM (MIN_PWM+(MAX_PWM-MIN_PWM)/2)-2
+#define CENTER_PWM (MIN_PWM+(MAX_PWM-MIN_PWM)/2)
 
 #define POS_SCALE 127
 

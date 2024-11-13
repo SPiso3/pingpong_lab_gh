@@ -1,6 +1,7 @@
 
 #include "sam.h"
 #include "../include/CAN.h"
+#include "../include/PWM.h"
 #include <stdio.h>
 
 void can_printmsg(CanMsg m){
@@ -25,7 +26,6 @@ void can_print_JOY(CanMsg m){
 
 #define txMailbox 0
 #define rxMailbox 1
-
 
 void can_init(CanInit init, uint8_t rxInterrupt){
     // Disable CAN
@@ -115,26 +115,39 @@ uint8_t can_rx(CanMsg* m){
     CAN0->CAN_MB[rxMailbox].CAN_MCR |= CAN_MCR_MTCR;
     return 1;
 }
-   
+
+int8_t rec_pos_x;
+int8_t rec_pos_y;
+uint8_t rec_pos_sl;
 
 // Example CAN interrupt handler
 void CAN0_Handler(void){
-    char can_sr = CAN0->CAN_SR; 
-    
-    // RX interrupt
-    if(can_sr & (1 << rxMailbox)){
-        // Add your message-handling code here
+	char can_sr = CAN0->CAN_SR;
+	
+	// RX interrupt
+	if(can_sr & (1 << rxMailbox)){
+		// Add your message-handling code here
 		CanMsg can_msg;
 		can_rx(&can_msg);
-		can_print_JOY(can_msg);
-    } else {
-        printf("CAN0 message arrived in non-used mailbox\n\r");
-    }
-    
-    if(can_sr & CAN_SR_MB0){
-        // Disable interrupt
-        CAN0->CAN_IDR = CAN_IER_MB0;
-    }
-    
-    NVIC_ClearPendingIRQ(ID_CAN0);
-} 
+		//can_print_JOY(can_msg);
+		
+		if(can_msg.id == CAN_ID_JOYSTICK){
+			rec_pos_x = can_msg.signed_data[0];
+			rec_pos_y = can_msg.signed_data[1];
+			rec_pos_sl = can_msg.unsigned_data[2];
+			//printf("%d\n\r",rec_pos_sl);
+			
+			//can_msg = (CanMsg){.id=CAN_ID_PWM, .length=1, .signed_data={pwm_value}};
+			//can_tx(can_msg);
+		}
+		} else {
+		printf("CAN0 message arrived in non-used mailbox\n\r");
+	}
+	
+	if(can_sr & CAN_SR_MB0){
+		// Disable interrupt
+		CAN0->CAN_IDR = CAN_IER_MB0;
+	}
+	
+	NVIC_ClearPendingIRQ(ID_CAN0);
+}

@@ -5,8 +5,9 @@
 #include <avr/interrupt.h>
 
 typedef enum {
-	CAN_ID_GOAL = 0xEE,
-	CAN_ID_PWM = 0xDD,
+	CAN_ID_GOAL,
+	CAN_ID_JOYSTICK,
+	CAN_ID_PWM,
 } Can_Id;
 
 typedef struct Message {

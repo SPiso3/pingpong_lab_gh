@@ -14,12 +14,22 @@ void pwm_init(void){
 	PIOB->PIO_PDR |= PIO_PB13;
 	PIOB->PIO_ABSR |= PIO_ABSR_P13;		// Set peripheral MUX to channel B (PWM)
 
-	
 	PWM->PWM_CH_NUM[1].PWM_CMR = PWM_CMR_CPRE_MCK_DIV_1024 | PWM_CMR_CPOL; // Use CLKA for this channel
 	PWM->PWM_CH_NUM[1].PWM_CPRD = CPRD_VALUE; //Set period (Adjust as per your frequency requirement)
 	PWM->PWM_CH_NUM[1].PWM_CDTY = CENTER_PWM;
 
 	PWM->PWM_ENA = PWM_ENA_CHID1; // Enable PWM on Channel 1 (PWMH1 on PB13)
+	
+	//pwm for motor
+	PIOB->PIO_OER |= PIO_PB12;
+	PIOB->PIO_PDR |= PIO_PB12;
+	PIOB->PIO_ABSR |= PIO_ABSR_P12;		// Set peripheral MUX to channel B (PWM)
+
+	PWM->PWM_CH_NUM[0].PWM_CMR =  PWM_CMR_CPOL; // Use CLKA for this channel
+	PWM->PWM_CH_NUM[0].PWM_CPRD = 3360; //Set period (Adjust as per your frequency requirement)
+	PWM->PWM_CH_NUM[0].PWM_CDTY = 0;
+
+	PWM->PWM_ENA |= PWM_ENA_CHID0;
 }
 
 /* Up date PWM servo position based on 8-bit unsigned value */

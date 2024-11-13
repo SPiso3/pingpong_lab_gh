@@ -10,6 +10,10 @@ drivers\src\ADC.c
 
 drivers\src\CAN.c
 
+drivers\src\encoder.c
+
+drivers\src\PID.c
+
 drivers\src\PWM.c
 
 drivers\src\time.c

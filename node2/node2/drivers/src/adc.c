@@ -12,7 +12,7 @@ void adc_init(){
 	ADC->ADC_CHER = ADC_CHER_CH0; // Enable channel 0 (AD0 pin)
 
 	//Enable interrupt for low threshold comparison
-	ADC->ADC_CWR = ADC_CWR_LOWTHRES(200); //threshold for low-level comparison
+	ADC->ADC_CWR = ADC_CWR_LOWTHRES(ADC_THRESHOLD); //threshold for low-level comparison
 	ADC->ADC_IER = ADC_IER_COMPE; //Enable comparison event interrupt
 	
 	NVIC_EnableIRQ(ADC_IRQn);
@@ -24,7 +24,7 @@ void ADC_Handler(void) {
 		if (time_now() - time_combine(last_time) >= time_combine(GOAL_TIME_TRESHOLD)){
 			last_time = time_split(time_now());
 			uint32_t result = ADC->ADC_CDR[0];
-			CanMsg can_msg = (CanMsg){.id=0xEE, .length=1, .unsigned_data={(uint8_t)result}};
+			CanMsg can_msg = (CanMsg){.id=CAN_ID_GOAL, .length=1, .unsigned_data={(uint8_t)result}};
 			can_tx(can_msg);
 		}
 	}

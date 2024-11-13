@@ -6,15 +6,15 @@ Device_Startup\startup_sam3xa.c
 
 Device_Startup\system_sam3xa.c
 
-drivers\src\adc.c
+drivers\src\ADC.c
 
-drivers\src\can.c
+drivers\src\CAN.c
 
-drivers\src\pwm.c
+drivers\src\PWM.c
 
 drivers\src\time.c
 
-drivers\src\uart.c
+drivers\src\UART.c
 
 main.c
 

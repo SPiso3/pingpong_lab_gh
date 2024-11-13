@@ -104,9 +104,10 @@ main.d main.o: .././main.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_pthreadtypes.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\types.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\stdio.h \
- .././drivers/include/uart.h .././drivers/include/can.h \
- .././drivers/include/time.h .././drivers/include/pwm.h \
- .././drivers/include/uart.h .././drivers/include/adc.h
+ .././drivers/include/UART.h .././drivers/include/CAN.h \
+ .././drivers/include/time.h .././drivers/include/PWM.h \
+ .././drivers/include/UART.h .././drivers/include/ADC.h \
+ .././drivers/include/../include/CAN.h
 
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/sam3x8e.h:
 
@@ -318,14 +319,16 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\stdio.h:
 
-.././drivers/include/uart.h:
+.././drivers/include/UART.h:
 
-.././drivers/include/can.h:
+.././drivers/include/CAN.h:
 
 .././drivers/include/time.h:
 
-.././drivers/include/pwm.h:
+.././drivers/include/PWM.h:
 
-.././drivers/include/uart.h:
+.././drivers/include/UART.h:
 
-.././drivers/include/adc.h:
+.././drivers/include/ADC.h:
+
+.././drivers/include/../include/CAN.h:

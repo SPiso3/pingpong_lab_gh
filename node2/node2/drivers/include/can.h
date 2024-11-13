@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CAN_H_
+#define CAN_H_
+
 #include <stdint.h>
 
 // Struct with bit timing information
@@ -95,7 +97,4 @@ uint8_t can_rx(CanMsg* m);
 // Print a CAN message (using `printf`)
 void can_printmsg(CanMsg m);
 
-
-
-
-
+#endif //CAN_H_

@@ -1,14 +1,8 @@
-/*
- * pwm.h
- *
- * Created: 20.10.2021 12:32:38
- *  Author: noi
- */ 
-
 #ifndef PWM_H_
 #define PWM_H_
 
-#include "uart.h"
+#include "sam3x8e.h"
+#include "UART.h"
 
 #define PWM_PERIOD 20		//ms
 #define CPRD_VALUE 1640+1		//CPRD = 20ms x 84MHz/1024

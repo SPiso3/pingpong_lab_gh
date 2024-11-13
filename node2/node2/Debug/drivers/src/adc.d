@@ -1,5 +1,5 @@
-drivers/src/adc.d drivers/src/adc.o: ../drivers/src/adc.c \
- ../drivers/src/../include/adc.h \
+drivers/src/ADC.d drivers/src/ADC.o: ../drivers/src/ADC.c \
+ ../drivers/src/../include/ADC.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/sam3x8e.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdint.h \
@@ -81,10 +81,10 @@ drivers/src/adc.d drivers/src/adc.o: ../drivers/src/adc.c \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/instance/rtc.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/instance/gpbr.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/pio/sam3x8e.h \
- ../drivers/src/../include/../include/can.h \
+ ../drivers/src/../include/../include/CAN.h \
  ../drivers/src/../include/time.h
 
-../drivers/src/../include/adc.h:
+../drivers/src/../include/ADC.h:
 
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/sam3x8e.h:
 
@@ -248,6 +248,6 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/i
 
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include/pio/sam3x8e.h:
 
-../drivers/src/../include/../include/can.h:
+../drivers/src/../include/../include/CAN.h:
 
 ../drivers/src/../include/time.h:

@@ -5,8 +5,7 @@
  *  Author: haakenl
  */ 
 
-#include "sam3x8e.h"
-#include "../include/pwm.h"
+#include "../include/PWM.h"
 
 /* Set up PWM used by the servo */
 void pwm_init(void){

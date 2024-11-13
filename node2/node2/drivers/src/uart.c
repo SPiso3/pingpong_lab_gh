@@ -1,4 +1,4 @@
-#include "../include/uart.h"
+#include "../include/UART.h"
 
 typedef struct RingBuf RingBuf;
 struct RingBuf {

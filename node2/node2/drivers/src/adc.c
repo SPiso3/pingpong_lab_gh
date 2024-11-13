@@ -1,4 +1,4 @@
-#include "../include/adc.h"
+#include "../include/ADC.h"
 #include "../include/time.h"
 
 Time last_time;

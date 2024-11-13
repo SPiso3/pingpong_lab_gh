@@ -165,34 +165,34 @@
     <Compile Include="Device_Startup\system_sam3xa.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\include\adc.h">
+    <Compile Include="drivers\include\ADC.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\include\can.h">
+    <Compile Include="drivers\include\CAN.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\include\pwm.h">
+    <Compile Include="drivers\include\PWM.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="drivers\include\time.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\include\uart.h">
+    <Compile Include="drivers\include\UART.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\src\adc.c">
+    <Compile Include="drivers\src\ADC.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\src\can.c">
+    <Compile Include="drivers\src\CAN.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\src\pwm.c">
+    <Compile Include="drivers\src\PWM.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="drivers\src\time.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\src\uart.c">
+    <Compile Include="drivers\src\UART.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">

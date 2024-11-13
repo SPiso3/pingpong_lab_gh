@@ -29,13 +29,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  12 .debug_ranges 000001e0  00000000  00000000  0002acd0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_macro  000129b1  00000000  00000000  0002aeb0  2**0
+ 13 .debug_macro  000129bf  00000000  00000000  0002aeb0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_line   00004353  00000000  00000000  0003d861  2**0
+ 14 .debug_line   0000437c  00000000  00000000  0003d86f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_str    00055a96  00000000  00000000  00041bb4  2**0
+ 15 .debug_str    00055afa  00000000  00000000  00041beb  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_frame  0000187c  00000000  00000000  0009764c  2**2
+ 16 .debug_frame  0000187c  00000000  00000000  000976e8  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -299,19 +299,16 @@ void adc_init(){
    80284:	f44f 5202 	mov.w	r2, #8320	; 0x2080
    80288:	605a      	str	r2, [r3, #4]
 
-	// Step 3: Set up threshold for low-level comparison
-	
-
-	// Step 4: Enable the specific ADC channel for AD0
+	//Enable the specific ADC channel for AD0
 	ADC->ADC_CHER = ADC_CHER_CH0; // Enable channel 0 (AD0 pin)
    8028a:	2201      	movs	r2, #1
    8028c:	611a      	str	r2, [r3, #16]
 
-	// Step 5: Enable interrupt for low threshold comparison
-	ADC->ADC_CWR = ADC_CWR_LOWTHRES(200); // Set low threshold
+	//Enable interrupt for low threshold comparison
+	ADC->ADC_CWR = ADC_CWR_LOWTHRES(200); //threshold for low-level comparison
    8028e:	22c8      	movs	r2, #200	; 0xc8
    80290:	645a      	str	r2, [r3, #68]	; 0x44
-	ADC->ADC_IER = ADC_IER_COMPE; // Enable comparison event interrupt
+	ADC->ADC_IER = ADC_IER_COMPE; //Enable comparison event interrupt
    80292:	f04f 6280 	mov.w	r2, #67108864	; 0x4000000
    80296:	625a      	str	r2, [r3, #36]	; 0x24
  */
@@ -325,7 +322,6 @@ __STATIC_INLINE void __NVIC_EnableIRQ(IRQn_Type IRQn)
    8029c:	6051      	str	r1, [r2, #4]
 	
 	NVIC_EnableIRQ(ADC_IRQn);
-	
 	ADC->ADC_CR = ADC_CR_START;
    8029e:	2202      	movs	r2, #2
    802a0:	601a      	str	r2, [r3, #0]
@@ -729,8 +725,8 @@ __STATIC_INLINE void __NVIC_ClearPendingIRQ(IRQn_Type IRQn)
    80520:	00081735 	.word	0x00081735
 
 00080524 <pwm_init>:
-#include "sam3x8e.h"
-#include "../include/pwm.h"
+
+#include "../include/PWM.h"
 
 /* Set up PWM used by the servo */
 void pwm_init(void){
@@ -1598,10 +1594,10 @@ int _read(int file, char* ptr, int len){
    80acc:	000809d9 	.word	0x000809d9
 
 00080ad0 <main>:
-#include "drivers/include/can.h"
+#include "drivers/include/CAN.h"
 #include "drivers/include/time.h"
-#include "drivers/include/pwm.h"
-#include "drivers/include/adc.h"
+#include "drivers/include/PWM.h"
+#include "drivers/include/ADC.h"
 
 int main(void) {
    80ad0:	b530      	push	{r4, r5, lr}

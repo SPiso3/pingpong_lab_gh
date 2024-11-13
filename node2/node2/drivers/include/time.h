@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TIME_H_
+#define TIME_H_
 
 #include <stdint.h>
 
@@ -61,3 +62,5 @@ uint64_t time_combine(Time t);
 //      // prints "t: Time(1h, 5m, 48s, 2ms, 0t)"
 #define time_fmtStr "%u:%u:%u::%u"
 #define time_fmtParam(t) t.hours, t.minutes, t.seconds, t.msecs
+
+#endif //TIME_H_

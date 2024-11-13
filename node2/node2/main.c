@@ -1,11 +1,11 @@
 #include "sam3x8e.h"
 
 #include <stdio.h>
-#include "drivers/include/uart.h"
-#include "drivers/include/can.h"
+#include "drivers/include/UART.h"
+#include "drivers/include/CAN.h"
 #include "drivers/include/time.h"
-#include "drivers/include/pwm.h"
-#include "drivers/include/adc.h"
+#include "drivers/include/PWM.h"
+#include "drivers/include/ADC.h"
 
 int main(void) {
 	SystemInit();

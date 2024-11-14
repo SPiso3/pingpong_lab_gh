@@ -1,7 +1,10 @@
 #ifndef MENU_H_
 #define MENU_H_
 
-#include "../../misc/utils.h"
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <stdbool.h>
+#include "../../misc/game.h"
 
 #define MAX_SUBMENUS 8
 

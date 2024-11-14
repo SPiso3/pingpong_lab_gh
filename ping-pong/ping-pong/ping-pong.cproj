@@ -201,10 +201,10 @@
     <Compile Include="misc\fonts.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\utils.c">
+    <Compile Include="misc\game.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\utils.h">
+    <Compile Include="misc\game.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

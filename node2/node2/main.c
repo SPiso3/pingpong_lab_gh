@@ -9,55 +9,67 @@
 #include "drivers/include/ADC.h"
 #include "drivers/include/encoder.h"
 #include "drivers/include/pid.h"
+#include "drivers/include/solenoid.h"
+#include "drivers/include/motor.h"
+#include "utils.h"
 
-extern joy_pos_t joy_pos_rec;
+int16_t ENCODER_MIN, ENCODER_MAX, ENCODER_RANGE;
+joy_pos_t joy_pos_rec;
+controller_t controller;
+bool gameloop = false;
+bool do_calib = false;
+
+#define FPS 60
+#define SAMPLE_TIME 1000/FPS
+
+void run(){
+	time_spinFor(msecs(SAMPLE_TIME));
+	
+	uint8_t pwm_value = from_joy2pwm(-*controller.servo);	//flipped direction (-)
+	set_duty_cycle(pwm_value);								//control servo
+	
+	int32_t y = get_y();									//measure from encoder
+	int32_t r = get_r(*controller.motor);					//rescale reference
+	int32_t u = pid(r,y);
+	drive_motor(u);											//drive motor
+
+	//handle solenoid
+	if(!joy_pos_rec.btn){
+		solenoid_push();
+	}
+	else{
+		solenoid_release();
+	}
+}
 
 int main(void) {
 	SystemInit();
 	WDT->WDT_MR = WDT_MR_WDDIS; //Disable Watchdog Timer
 	uart_init(F_CPU, 9600);
 	can_init((CanInit){.brp = 41, .phase1 = 6, .phase2 = 5, .propag = 1, .sjw=2}, 1);
-	pwm_init();
 	adc_init();
-	set_duty_cycle(CENTER_PWM);
-	encoder_init();
-	solenoid_init();
-	motor_init();
 	
+	pwm_init();
+	motor_init();
+	solenoid_init();
+	
+	//default if not sent
+	controller.motor = &joy_pos_rec.sr;
+	controller.servo = &joy_pos_rec.x;
+	
+	//ZzZ...
 
 	while (1){
-		time_spinFor(msecs(16));
-		
-		uint8_t pwm_value = from_joy2pwm(-joy_pos_rec.x);
-		set_duty_cycle(pwm_value);
-		
-		int32_t y = (-encoder_read() + 2813);
-		//printf("%d\n\r",rec_pos_sl);
-		int32_t r = (joy_pos_rec.y)*2813/127;
-		int32_t u = pid(r,y);
-		int8_t dir = (u >= 0) ? 1 : -1;
-		u = (abs(u) >= 3360) ? 3360 : abs(u);
-		//CanMsg can_msg = (CanMsg){.id=CAN_ID_PWM, .length=1, .unsigned_data={u}};
-		//can_tx(can_msg);
-		
-		drive_motor(u);
-		if (dir >= 0)
-			PIOC->PIO_SODR |= PIO_PER_P23;
-		else
-			PIOC->PIO_CODR |= PIO_PER_P23;
-			
-		if(!joy_pos_rec.btn){
-			PIOA->PIO_CODR = PIO_CODR_P3;
+		if(gameloop){
+			if (do_calib){
+				do_calib = false;
+				auto_calib_encoder();
+			}
+			run();
 		}
-		else{
-			PIOA->PIO_SODR = PIO_SODR_P3;
+		else {
+			printf("zZz...\n\r");
+			time_spinFor(msecs(1000));
 		}
-			
-		//uint16_t data = ADC -> ADC_CDR[0];
-		//printf("%d\n\r", data);
-		
-		//printf("%d %d S: %d %d BTN: %d\n\r", joy_pos_rec.x, joy_pos_rec.y, joy_pos_rec.sl, joy_pos_rec.sr, joy_pos_rec.btn);
 	}
 }
-
-//max 5627

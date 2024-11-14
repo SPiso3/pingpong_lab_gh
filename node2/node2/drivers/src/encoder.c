@@ -1,4 +1,5 @@
 #include "../include/encoder.h"
+#include "../include/motor.h"
 
 void encoder_init(){
 	PMC->PMC_PCER1 |= (1<<(ID_TC6-32));
@@ -20,3 +21,12 @@ void encoder_init(){
 uint32_t encoder_read(){
 	return TC2->TC_CHANNEL[0].TC_CV;
 }
+
+int32_t get_y(){
+	return (-encoder_read() + ENCODER_RANGE/2);
+}
+
+int32_t get_r(int8_t pos){
+	return (pos * ENCODER_RANGE/2) / JOY_SCALE;
+}
+

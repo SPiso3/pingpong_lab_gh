@@ -52,7 +52,8 @@ C_SRCS +=  \
 ../drivers/src/PWM.c \
 ../drivers/src/time.c \
 ../drivers/src/UART.c \
-../main.c
+../main.c \
+../utils.c
 
 
 PREPROCESSING_SRCS += 
@@ -73,7 +74,8 @@ drivers/src/PID.o \
 drivers/src/PWM.o \
 drivers/src/time.o \
 drivers/src/UART.o \
-main.o
+main.o \
+utils.o
 
 OBJS_AS_ARGS +=  \
 Device_Startup/startup_sam3xa.o \
@@ -87,7 +89,8 @@ drivers/src/PID.o \
 drivers/src/PWM.o \
 drivers/src/time.o \
 drivers/src/UART.o \
-main.o
+main.o \
+utils.o
 
 C_DEPS +=  \
 Device_Startup/startup_sam3xa.d \
@@ -101,7 +104,8 @@ drivers/src/PID.d \
 drivers/src/PWM.d \
 drivers/src/time.d \
 drivers/src/UART.d \
-main.d
+main.d \
+utils.d
 
 C_DEPS_AS_ARGS +=  \
 Device_Startup/startup_sam3xa.d \
@@ -115,7 +119,8 @@ drivers/src/PID.d \
 drivers/src/PWM.d \
 drivers/src/time.d \
 drivers/src/UART.d \
-main.d
+main.d \
+utils.d
 
 OUTPUT_FILE_PATH +=node2.elf
 
@@ -213,6 +218,13 @@ drivers/src/UART.o: ../drivers/src/UART.c
 	
 
 ./main.o: .././main.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./utils.o: .././utils.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

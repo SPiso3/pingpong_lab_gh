@@ -1,5 +1,10 @@
 #include "../include/CAN.h"
 #include "../include/PWM.h"
+#include "../../utils.h"
+
+extern joy_pos_t joy_pos_rec;
+extern controller_t controller;
+extern bool gameloop, do_calib;
 
 void can_printmsg(CanMsg m){
     printf("\n\rCanMsg(id:%d, length:%d, data:{", m.id, m.length);
@@ -113,8 +118,6 @@ uint8_t can_rx(CanMsg* m){
     return 1;
 }
 
-joy_pos_t joy_pos_rec;
-
 // Example CAN interrupt handler
 void CAN0_Handler(void){
 	char can_sr = CAN0->CAN_SR;
@@ -124,17 +127,46 @@ void CAN0_Handler(void){
 		// Add your message-handling code here
 		CanMsg can_msg;
 		can_rx(&can_msg);
-		//can_print_JOY(can_msg);
+		//can_printmsg(can_msg);
 		
-		if(can_msg.id == CAN_ID_JOYSTICK){
+		//CAN MSG HANDLER
+		if (can_msg.id == CAN_ID_GAMEOVER){
+			printf("GAMEOVER\n\r");
+			gameloop = false;
+		} else if (can_msg.id == CAN_ID_NEW_GAME) {
+			printf("NEW GAME\n\r");
+			gameloop = true;
+			do_calib = true;
+		} else if (can_msg.id == CAN_ID_GOAL) {
+			//not covered by this node
+		}
+		else if(can_msg.id == CAN_ID_JOYSTICK){
 			joy_pos_rec = (joy_pos_t){	.x = can_msg.signed_data[0],
 										.y = can_msg.signed_data[1],
-										.sl = can_msg.unsigned_data[2],
-										.sr = can_msg.unsigned_data[3],
-										.btn = can_msg.unsigned_data[4],};
+										.sl = can_msg.unsigned_data[2] - 127,
+										.sr = can_msg.unsigned_data[3] - 127,
+										.btn = can_msg.unsigned_data[4]};
+		} else if (can_msg.id == CAN_ID_SETTINGS) {
+			printf("SETTINGS: MODE: %d\n\r", can_msg.signed_data[0]);
+			if(can_msg.signed_data[0] == MODE_1){
+				controller.motor = &joy_pos_rec.x;
+				controller.servo = &joy_pos_rec.y;
+			} else if(can_msg.signed_data[0] == MODE_2){
+				controller.motor = &joy_pos_rec.sl;
+				controller.servo = &joy_pos_rec.sr;
+			} else if(can_msg.signed_data[0] == MODE_3){
+				controller.motor = &joy_pos_rec.sr;
+				controller.servo = &joy_pos_rec.x;
+			} else if(can_msg.signed_data[0] == MODE_4){
+				controller.motor = &joy_pos_rec.x;
+				controller.servo = &joy_pos_rec.x;
+			} else if(can_msg.signed_data[0] == MODE_5){
+				controller.motor = &joy_pos_rec.sr;
+				controller.servo = &joy_pos_rec.sr;
+			} else {
+				printf("CAN0 message arrived in non-used mailbox\n\r");
+			}
 		}
-		} else {
-		printf("CAN0 message arrived in non-used mailbox\n\r");
 	}
 	
 	if(can_sr & CAN_SR_MB0){

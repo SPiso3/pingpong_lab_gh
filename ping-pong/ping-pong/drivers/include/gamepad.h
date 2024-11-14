@@ -9,6 +9,9 @@
 #define POS_SCALE 127
 #define IDLE_VAL (POS_SCALE/2)
 
+#define MAX(a,b) ((a >= b) ? a : b)
+#define MIN(a,b) ((a <= b) ? a : b)
+
 typedef struct{
 	int16_t x;
 	int16_t y;

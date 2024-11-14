@@ -4,20 +4,36 @@
 #include "sam3x8e.h"
 #include <stdint.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 typedef enum {
+	CAN_ID_GAMEOVER,
+	CAN_ID_NEW_GAME,
 	CAN_ID_GOAL,
 	CAN_ID_JOYSTICK,
-	CAN_ID_PWM,
+	CAN_ID_SETTINGS,
 } Can_Id;
+
+typedef enum {
+	MODE_1,
+	MODE_2,
+	MODE_3,
+	MODE_4,
+	MODE_5,
+} Settings;
 
 typedef struct{
 	int8_t x;
 	int8_t y;
-	uint8_t sl;
-	uint8_t sr;
+	int8_t sl;
+	int8_t sr;
 	uint8_t btn;
 } joy_pos_t;
+
+typedef struct{
+	int8_t* motor;
+	int8_t* servo;
+} controller_t;
 
 // Struct with bit timing information
 // See `can_init` for usage example

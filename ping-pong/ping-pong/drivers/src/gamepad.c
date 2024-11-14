@@ -1,5 +1,4 @@
 #include "../include/gamepad.h"
-#include "../../misc/utils.h"
 extern pos_t gamepad_center;
 
 void JOY_init(){

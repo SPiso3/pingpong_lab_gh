@@ -2,38 +2,21 @@
 
 extern FILE *oled_output;
 
-void image_1(){
-	OLED_clear();
-	OLED_print_figure(32,0,64,64);
-	_delay_ms(2000);
-}
-
-void image_2v2(){
-	OLED_clear();
-	OLED_print_figure(0,0,64,64);
-	OLED_print_figure(64,0,64,64);
-	_delay_ms(2000);
-}
-
-void multiplayer(){
-	OLED_clear();
-	OLED_print_figure(0,0,64,64);
-	OLED_print_figure(64,0,64,64);
-	OLED_print_figure(32,0,64,64);
-	_delay_ms(2000);
-}
-
 void menu_init(){
 	menu_t menu_null = {"root",NULL,NULL,{NULL},0};
 	
-	menu_add(&menu_null, "HIGH SCORE", NULL);
-	menu_ptr menu_play = menu_add(&menu_null, "PLAY", NULL);
+	menu_ptr menu_play = menu_add(&menu_null, "NEW GAME", &new_game);
+	//menu_add(menu_play, "play again?", &new_game);
+	//menu_add(menu_play, "no, thanks", &menu_init);
+	
+	menu_ptr menu_settings = menu_add(&menu_null, "SETTINGS", NULL);
+	menu_add(menu_settings, "x-y", &settings_mode1);
+	menu_add(menu_settings, "sl-sr", &settings_mode2);
+	menu_add(menu_settings, "sr-x", &settings_mode3);
+	menu_add(menu_settings, "x-x", &settings_mode4);
+	menu_add(menu_settings, "sr-sr", &settings_mode5);
+	
 	menu_ptr menu_test = menu_add(&menu_null, "TEST", NULL);
-	
-	menu_add(menu_play, "1v1", &image_1);
-	menu_add(menu_play, "2v2", &image_2v2);
-	menu_add(menu_play, "multiplayer", &multiplayer);
-	
 	menu_add(menu_test, "SRAM", &test_SRAM);
 	menu_add(menu_test, "OLED", &test_OLED);
 	
@@ -55,7 +38,7 @@ void menu_loop(menu_ptr current){
 	uint8_t selected_subM = 0;
 	while(1){
 		_delay_ms(100);
-		printf("%s\n\r",current->text);
+		//printf("%s\n\r",current->text);
 		dir direction = JOY_get_dir();
 		switch(direction){
 			case UP:
@@ -103,7 +86,7 @@ void display_menu(menu_ptr m, uint8_t arrow_pos){
 	
 	OLED_goto_pos(arrow_pos, 0);
 	fprintf(oled_output,"> ");
-	printf("%u\n\r", arrow_pos);
+	//printf("%u\n\r", arrow_pos);
 	
 	for(uint8_t i = 0; i < m->subM_n; i++){
 		OLED_goto_pos(i,16);
@@ -112,7 +95,7 @@ void display_menu(menu_ptr m, uint8_t arrow_pos){
 }
 
 menu_ptr menu_add(menu_ptr parent, char * text, void (*function)()) {
-	printf("size:%d",sizeof(menu_t));
+	//printf("size:%d",sizeof(menu_t));
 	menu_ptr subMenu = (menu_ptr)malloc(sizeof(menu_t));
 	subMenu->text = text;
 	subMenu->function = function;

@@ -1,8 +1,5 @@
-
-#include "sam.h"
 #include "../include/CAN.h"
 #include "../include/PWM.h"
-#include <stdio.h>
 
 void can_printmsg(CanMsg m){
     printf("\n\rCanMsg(id:%d, length:%d, data:{", m.id, m.length);
@@ -116,9 +113,7 @@ uint8_t can_rx(CanMsg* m){
     return 1;
 }
 
-int8_t rec_pos_x;
-int8_t rec_pos_y;
-uint8_t rec_pos_sl;
+joy_pos_t joy_pos_rec;
 
 // Example CAN interrupt handler
 void CAN0_Handler(void){
@@ -132,13 +127,11 @@ void CAN0_Handler(void){
 		//can_print_JOY(can_msg);
 		
 		if(can_msg.id == CAN_ID_JOYSTICK){
-			rec_pos_x = can_msg.signed_data[0];
-			rec_pos_y = can_msg.signed_data[1];
-			rec_pos_sl = can_msg.unsigned_data[2];
-			//printf("%d\n\r",rec_pos_sl);
-			
-			//can_msg = (CanMsg){.id=CAN_ID_PWM, .length=1, .signed_data={pwm_value}};
-			//can_tx(can_msg);
+			joy_pos_rec = (joy_pos_t){	.x = can_msg.signed_data[0],
+										.y = can_msg.signed_data[1],
+										.sl = can_msg.unsigned_data[2],
+										.sr = can_msg.unsigned_data[3],
+										.btn = can_msg.unsigned_data[4],};
 		}
 		} else {
 		printf("CAN0 message arrived in non-used mailbox\n\r");

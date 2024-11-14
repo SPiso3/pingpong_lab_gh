@@ -23,8 +23,9 @@ void ADC_Handler(void) {
 	if (ADC->ADC_ISR & ADC_ISR_COMPE) { // Check if the comparison event triggered the interrupt
 		if (time_now() - time_combine(last_time) >= time_combine(GOAL_TIME_TRESHOLD)){
 			last_time = time_split(time_now());
-			uint32_t result = ADC->ADC_CDR[0];
-			CanMsg can_msg = (CanMsg){.id=CAN_ID_GOAL, .length=1, .unsigned_data={(uint8_t)result}};
+			uint16_t result = ADC->ADC_CDR[0];
+			//printf("int: %d\n\r", result);
+			CanMsg can_msg = (CanMsg){.id=CAN_ID_GOAL, .length=1, .unsigned_data={(uint8_t)(result*1500/255)}};
 			can_tx(can_msg);
 		}
 	}

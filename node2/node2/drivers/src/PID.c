@@ -1,25 +1,30 @@
 #include "../include/PID.h"
 
-#define kp 2.5 //1,5
-#define ki 0 //0,005
-#define kd 0.25 //0,15
+#define kp 4  //1,5   | 2.5 - 4
+#define ki 0.0  //0,005 | 0.0 - 0
+#define kd 18 //0,15  | 0.25 - 20
+#define sf 450
+#define antiwindup_val 1000
 
-int32_t e_past = 0;
-int32_t e_accum = 0;
+int64_t e_past = 0;
+int64_t e_accum = 0;
 
 int32_t pid(int32_t r, int32_t y){
 	int64_t u;
 	int32_t e = r-y;
-	int32_t e_dot = (e - e_past) / 0.016;
-	int16_t sf = (e>0) ? 450 : -450;
-	u = kp*e + kd*e_dot + ki*e_accum + sf;
+	int32_t e_dot = (e - e_past);
+	int16_t sf_term = (e>0) ? sf : -sf;
+	u = kp*e + kd*e_dot + ki*e_accum + sf_term;
 	
+	//update values
 	e_past = e;
 	e_accum += e;
-	//if (e_accum >= 1000)
-	//	e_accum = +1000;
-	//else if (e_accum <= -1000)
-	//	e_accum = -1000;
 	
+	//anti-windup
+	if (e_accum >= antiwindup_val)
+		e_accum = +antiwindup_val;
+	else if (e_accum <= -antiwindup_val)
+		e_accum = -antiwindup_val;
+
 	return (int32_t)u;
 }

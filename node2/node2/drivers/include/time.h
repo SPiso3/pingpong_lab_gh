@@ -1,7 +1,10 @@
 #ifndef TIME_H_
 #define TIME_H_
 
+#include "sam3x8e.h"
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 // Time is a count of the number of ticks, and is represented as a uint64_t
 // Time is used to mean both absolute time since device start, and a duration

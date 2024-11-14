@@ -10,6 +10,10 @@ drivers\src\ADC.c
 
 drivers\src\CAN.c
 
+drivers\src\motor.c
+
+drivers\src\solenoid.c
+
 drivers\src\encoder.c
 
 drivers\src\PID.c

@@ -1,6 +1,3 @@
-#include <sam.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "../include/time.h"
 
 uint64_t calib;

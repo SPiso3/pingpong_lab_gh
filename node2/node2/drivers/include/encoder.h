@@ -1,6 +1,7 @@
 #ifndef ENCODER_H_
 #define ENCODER_H_
 
+#include "sam3x8e.h"
 #include <stdio.h>
 
 void encoder_init();

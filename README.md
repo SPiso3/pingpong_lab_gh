@@ -4,7 +4,7 @@ Repository for ping-pong mechatronic embedded system for TTK4155.
 ### Group 25
 Alberto Morselli https://github.com/albertomors \
 Sergio Pisoni https://github.com/SPiso3 \
-Adrià Espiell Chaler \
+Adrià Espiell Chaler
 
 ### Highlights
 Hours spent on this: approx 100 \

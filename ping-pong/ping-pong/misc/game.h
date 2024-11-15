@@ -19,9 +19,22 @@
 
 #include <util/delay.h>
 
+//------------------------------------------
+//DEFINES
+
+#define JOY_SEND_TRESHOLD 5
+#define SLIDER_SEND_TRESHOLD 12
+
+#define MAXLIVES 10
+
+#define CALIB_TIME 3000 //ms
+#define FPS 60
+#define GAME_SPEED 1000/FPS
+
 #define MAX(a,b) ((a >= b) ? a : b)
 #define MIN(a,b) ((a <= b) ? a : b)
 
+//settings for playing the game, described in node2 by the sam typedef
 typedef enum {
 	MODE_1,
 	MODE_2,
@@ -30,25 +43,29 @@ typedef enum {
 	MODE_5,
 } Settings;
 
-void test_UART();
+//------------------------------------------
+//functions()
+
+//void test_UART();
 void test_SRAM();
-void test_XMEM();
-void test_ADC();
-void test_JOYSTICK();
+//void test_XMEM();
+//void test_ADC();
+//void test_JOYSTICK();
 void test_OLED();
-void test_MENU();
-void test_MCP_loopback();
-void test_LB_CAN_main();
-void test_LB_CAN_isr();
+//void test_MENU();
+//void test_MCP_loopback();
+//void test_LB_CAN_main();
+//void test_LB_CAN_isr();
 
+//send settings to node2
 void settings(uint8_t mode);
-
 void settings_mode1();
 void settings_mode2();
 void settings_mode3();
 void settings_mode4();
 void settings_mode5();
 
+//send new game() to node2
 void new_game();
 
 #endif /* GAME_H_ */

@@ -2,9 +2,12 @@
 #include "../include/PWM.h"
 #include "../../utils.h"
 
+//extern global variables to save into from can interrupt
 extern joy_pos_t joy_pos_rec;
 extern controller_t controller;
 extern bool gameloop, do_calib;
+
+//----------------------------------------------
 
 void can_printmsg(CanMsg m){
     printf("\n\rCanMsg(id:%d, length:%d, data:{", m.id, m.length);
@@ -141,6 +144,7 @@ void CAN0_Handler(void){
 			//not covered by this node
 		}
 		else if(can_msg.id == CAN_ID_JOYSTICK){
+			//update joystick structure
 			joy_pos_rec = (joy_pos_t){	.x = can_msg.signed_data[0],
 										.y = can_msg.signed_data[1],
 										.sl = can_msg.unsigned_data[2] - 127,
@@ -148,6 +152,7 @@ void CAN0_Handler(void){
 										.btn = can_msg.unsigned_data[4]};
 		} else if (can_msg.id == CAN_ID_SETTINGS) {
 			printf("SETTINGS: MODE: %d\n\r", can_msg.signed_data[0]);
+			//redirect motor and servo pointers on the new controller variables
 			if(can_msg.signed_data[0] == MODE_1){
 				controller.motor = &joy_pos_rec.x;
 				controller.servo = &joy_pos_rec.y;

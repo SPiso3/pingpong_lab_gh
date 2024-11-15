@@ -1,9 +1,9 @@
 #include "../include/PID.h"
 #include "../include/motor.h"
 
-#define kp 4  //1,5   | 2.5 - 4
-#define ki 0.0  //0,005 | 0.0 - 0
-#define kd 20 //0,15  | 0.25 - 20
+#define kp 4			//1,5   | 2.5 - 4
+#define ki 0.0			//0,005 | 0.0 - 0
+#define kd 20			//0,15  | 0.25 - 20
 #define sf 450
 #define antiwindup_val 1000
 

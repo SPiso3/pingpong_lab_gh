@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+//Can messages ids (the same of the node1)
 typedef enum {
 	CAN_ID_GAMEOVER,
 	CAN_ID_NEW_GAME,
@@ -14,6 +15,7 @@ typedef enum {
 	CAN_ID_SETTINGS,
 } Can_Id;
 
+//Controller settings
 typedef enum {
 	MODE_1,
 	MODE_2,
@@ -22,6 +24,7 @@ typedef enum {
 	MODE_5,
 } Settings;
 
+//joystick structure
 typedef struct{
 	int8_t x;
 	int8_t y;
@@ -30,10 +33,15 @@ typedef struct{
 	uint8_t btn;
 } joy_pos_t;
 
+//Controller structure (subset of joystick)
 typedef struct{
 	int8_t* motor;
 	int8_t* servo;
 } controller_t;
+
+
+//----------------------------------------------------------------
+
 
 // Struct with bit timing information
 // See `can_init` for usage example

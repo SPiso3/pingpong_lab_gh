@@ -2,6 +2,8 @@
 #define GAMEPAD_H_
 
 #include <avr/io.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "../include/ADC.h"
 
 #define CALIB_SAMPLES 8

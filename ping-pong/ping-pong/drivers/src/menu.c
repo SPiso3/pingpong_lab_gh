@@ -5,9 +5,7 @@ extern FILE *oled_output;
 void menu_init(){
 	menu_t menu_null = {"root",NULL,NULL,{NULL},0};
 	
-	menu_ptr menu_play = menu_add(&menu_null, "NEW GAME", &new_game);
-	//menu_add(menu_play, "play again?", &new_game);
-	//menu_add(menu_play, "no, thanks", &menu_init);
+	menu_add(&menu_null, "NEW GAME", &new_game);
 	
 	menu_ptr menu_settings = menu_add(&menu_null, "SETTINGS", NULL);
 	menu_add(menu_settings, "x-y", &settings_mode1);
@@ -21,6 +19,8 @@ void menu_init(){
 	menu_add(menu_test, "OLED", &test_OLED);
 	
 	/*
+	TO BE ADDED IF MEMSPACE is enough
+	
 	menu_add(menu_test, "UART", &test_UART);
 	menu_add(menu_test, "SRAM", &test_SRAM);
 	menu_add(menu_test, "XMEM", &test_XMEM);

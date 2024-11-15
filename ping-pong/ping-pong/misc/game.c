@@ -1,47 +1,45 @@
 #include "game.h"
 
-#define JOY_SEND_TRESHOLD 5
-#define SLIDER_SEND_TRESHOLD 12
+//global variables
 extern FILE *oled_output;
-uint8_t lives = 3;
+uint8_t lives = MAXLIVES;
 bool gameover = false;
 
+//time survived (not super-precise but do his job)
 uint16_t ms;
-uint8_t seconds;
-uint8_t minutes;
+uint8_t sec, min;
 
-void settings(uint8_t mode){
-	message_t msg = {.id = CAN_ID_SETTINGS, .length=1, .signed_data={mode}};
-	CAN_send(&msg);
-	printf("SETTINGS send with MODE: %d\n\r", mode);
-	OLED_invert();
-	_delay_ms(100);
-	OLED_invert();
+//---------------------------------------------------
+
+void restart_timer(){
+	//restart the timer
+	ms = 0;
+	sec = 0;
+	min = 0;
 }
 
-void settings_mode1(){ settings(MODE_1); };
-void settings_mode2(){ settings(MODE_2); };
-void settings_mode3(){ settings(MODE_3); };
-void settings_mode4(){ settings(MODE_4); };
-void settings_mode5(){ settings(MODE_5); };
-
-void new_game(){
-	gameover = false;
-	message_t msg = {.id = CAN_ID_NEW_GAME, .length=1, .signed_data={0}};
-	CAN_send(&msg);
-	OLED_clear();
-	OLED_goto_row(3);
-	fprintf(oled_output, "CALIBRATION...");
-	_delay_ms(3000); //waiting that he calibrates
-	gameloop();
+void update_timer(){
+	//update time
+	ms += GAME_SPEED;
+	if(ms>=1000){
+		ms = ms%1000;
+		sec++;
+	}
+	if(sec>=60){
+		sec = sec%60;
+		min++;
+	}
+	//idk if you can reach this but.. who knows?
+	if(min>=60){
+		min = min%60;
+	}
 }
 
 void gameloop(){
 	
-	ms = 0;
-	seconds = 0;
-	minutes = 0;
+	restart_timer();
 	
+	//to handle noise flickering
 	int8_t last_x = 0;
 	int8_t last_y = 0;
 	uint8_t last_sl = 0;
@@ -50,22 +48,27 @@ void gameloop(){
 	
 	bool send = false;
 	
+	//start setting up the screen
 	OLED_clear();
 	OLED_goto_pos(0,0);
 	fprintf(oled_output, "LIVES: %d", lives);
 	
 	while(1 && !gameover){
-		_delay_ms(16);
+		_delay_ms(GAME_SPEED);
+		
+		//samples from joystick
 		pos_t pos = JOY_get_rel_pos();
 		sliders_t sliders = JOY_get_sliders();
 		
+		//extract single variables
 		int8_t x = (int8_t)pos.x;
 		int8_t y  = (int8_t)pos.y;
 		uint8_t sl = sliders.left;
 		uint8_t sr = sliders.right;
 		uint8_t btn = ((PIND & (1<<JOY_BUTTON))>>JOY_BUTTON);
 		
-		//send only if difference is meaningful to avoid annoying flickering
+		//update only if difference is meaningful to avoid annoying flickering
+		//send only if one of these has changed
 		if (abs(x-last_x) >= JOY_SEND_TRESHOLD){
 			last_x = x;
 			send = true;
@@ -87,6 +90,7 @@ void gameloop(){
 			send = true;
 		}
 		
+		//send only if one of those has changed
 		if (send){
 			message_t msg = {CAN_ID_JOYSTICK, 5, .signed_data={last_x,last_y}};
 			msg.unsigned_data[2] = last_sl;
@@ -94,22 +98,14 @@ void gameloop(){
 			msg.unsigned_data[4] = last_btn;
 			CAN_send(&msg);
 			
-			send = false;
+			send = false; //job done, back to sleep
 		}
 		
-		ms += 16;
-		if(ms>=1000){
-			ms = ms%1000;
-			seconds++;
-		} 
-		if(seconds>=60){
-			seconds = seconds%60;
-			minutes++;
-		}
+		update_timer();
 		
 		OLED_clear_row(1);
 		OLED_goto_pos(1,0);
-		fprintf(oled_output, "TIME: %2d:%2d", minutes, seconds);
+		fprintf(oled_output, "TIME: %2d:%2d", min, sec);
 		
 		OLED_clear_row(3);
 		OLED_clear_row(4);
@@ -132,6 +128,8 @@ void gameloop(){
 
 ISR(INT0_vect) {
 	message_t rec = CAN_receive();
+	
+	//update lives (also on screen)
 	if (rec.id==CAN_ID_GOAL){
 		OLED_clear_row(0);
 		OLED_goto_pos(0,0);
@@ -142,7 +140,46 @@ ISR(INT0_vect) {
 	MCP_bit_modify(MCP_CANINTF, MCP_RX0IF, 0);
 }
 
+//---------------------------------------------------
+//messages to node2
 
+void settings(uint8_t mode){
+	message_t msg = {.id = CAN_ID_SETTINGS, .length=1, .signed_data={mode}};
+	CAN_send(&msg);
+	printf("SETTINGS send with MODE: %d\n\r", mode);
+	
+	//screen blinks to reply
+	OLED_invert();
+	_delay_ms(100);
+	OLED_invert();
+}
+
+//five controller modes available
+void settings_mode1(){ settings(MODE_1); };
+void settings_mode2(){ settings(MODE_2); };
+void settings_mode3(){ settings(MODE_3); };
+void settings_mode4(){ settings(MODE_4); };
+void settings_mode5(){ settings(MODE_5); };
+
+//new game command
+void new_game(){
+	gameover = false;
+	
+	//send can message to node2
+	message_t msg = {.id = CAN_ID_NEW_GAME, .length=1, .signed_data={0}};
+	CAN_send(&msg);
+	printf("NEW GAME\n\r");
+	
+	OLED_clear();
+	OLED_goto_row(3);
+	printf("CALIBRATION...\n\r");
+	fprintf(oled_output, "CALIBRATION...");
+	_delay_ms(CALIB_TIME); //waiting the calibration time
+	
+	//start the game
+	printf("gameloop()\n\r");
+	gameloop();
+}
 
 
 

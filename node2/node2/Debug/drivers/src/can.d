@@ -110,10 +110,10 @@ drivers/src/CAN.d drivers/src/CAN.o: ../drivers/src/CAN.c \
  ../drivers/src/../../utils.h \
  ../drivers/src/../../drivers/include/encoder.h \
  ../drivers/src/../../drivers/include/motor.h \
- ../drivers/src/../../drivers/include/time.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdlib.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\stdlib.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\alloca.h
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\alloca.h \
+ ../drivers/src/../../drivers/include/time.h
 
 ../drivers/src/../include/CAN.h:
 
@@ -339,10 +339,10 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gc
 
 ../drivers/src/../../drivers/include/motor.h:
 
-../drivers/src/../../drivers/include/time.h:
-
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdlib.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\stdlib.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\alloca.h:
+
+../drivers/src/../../drivers/include/time.h:

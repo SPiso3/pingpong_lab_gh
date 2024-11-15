@@ -9,3 +9,9 @@ Adrià Espiell Chaler
 ### Highlights
 Hours spent on this: approx 110 \
 Best push: 13nov2024 from 8:30🕣 to 22:30🕥
+
+################################################################
+
+<div style="display: flex; justify-content: center; gap: 10px;">
+  <img src="res/node1.jpg" alt="Image 1" width="60%">
+</p>

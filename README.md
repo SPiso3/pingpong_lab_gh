@@ -7,5 +7,5 @@ Sergio Pisoni https://github.com/SPiso3 \
 Adrià Espiell Chaler
 
 ### Highlights
-Hours spent on this: approx 100 \
+Hours spent on this: approx 110 \
 Best push: 13nov2024 from 8:30🕣 to 22:30🕥

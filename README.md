@@ -1,5 +1,11 @@
 # [TTK4155 - Embedded and Industrial Computer Systems Design](http://www.ntnu.edu/studies/courses/TTK4155)
+
+## Team
 August - December 2024
+
+-Alberto Morselli https://github.com/albertomors \
+-Sergio Pisoni https://github.com/SPiso3 \
+-Adrià Espiell Chaler
 
 ## Course content
 Design of embedded computer systems. Computer architectures and system components for embedded and industrial applications. Microcontrollers and specialized microprocessors. Parallel and serial bus systems. Data communication in industrial environments. Analog/digital interfaces.
@@ -16,11 +22,6 @@ In this course, we had a large term project where we created a computer controll
   - **Part 7** - Controlling servo and IR
   - **Part 8** - Controlling motor and solenoid
   - **Part 9** - Completion of the project
-
-## Team
-Alberto Morselli https://github.com/albertomors \
-Sergio Pisoni https://github.com/SPiso3 \
-Adrià Espiell Chaler
 
 ## Structure
 

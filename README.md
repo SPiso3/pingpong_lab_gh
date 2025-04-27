@@ -44,3 +44,7 @@ maglev22/
 <div style="display: flex; justify-content: center; gap: 10px;">
   <img src="res/minibreadboard_node2.jpg" alt="Image 1" width="60%">
 </p>
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
